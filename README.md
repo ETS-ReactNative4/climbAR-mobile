@@ -12,3 +12,29 @@ Setup:
 		npx react-native run-ios 
 
 4. Documentation for react native : https://reactnative.dev/docs/getting-started
+
+**Adding Custom Fonts**
+1. Download and unzip the font you want (e.g. Roboto can be downloaded [here](https://fonts.google.com/specimen/Roboto?selection.family=Roboto)
+2. Add the ttf files corresponding to the fonts that you want to the folder assets/fonts
+3. In ios/ClimbARmobile/info.plist add the names of the files you just added to the markup like this:
+	*Example adding all of the Roboto variations to an ios App*
+`<key>UIAppFonts</key>
+	<array>
+		<string>Roboto-Black.ttf</string>
+		<string>Roboto-BlackItalic.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-BoldItalic.ttf</string>
+		<string>Roboto-Italic.ttf</string>
+		<string>Roboto-Light.ttf</string>
+		<string>Roboto-LightItalic.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-MediumItalic.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>Roboto-Thin.ttf</string>
+		<string>Roboto-ThinItalic.ttf</string>
+	</array>`
+4. In you CLI in the root of the app run `npx react-native link`. You should see a message confirming that your assets were linked to the app
+5. Terminate the ios simulator if it's running `ctrl+c`
+6. from the root of the app run `npm run ios`
+
+
