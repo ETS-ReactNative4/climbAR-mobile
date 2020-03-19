@@ -26,8 +26,9 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import axios from 'axios';
-import {Button} from 'react-native-material-ui';
+import {Button, Card} from 'react-native-material-ui';
 import Topnav from './Topnav';
+import ClimbingRoutes from './ClimbingRoutes';
 
 const App: () => React$Node = () => {
   return (
@@ -39,6 +40,7 @@ const App: () => React$Node = () => {
           style={styles.scrollView}>
           <Topnav />
           <View style={styles.body}>
+            <ClimbingRoutes />
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Our Code</Text>
               <Text style={styles.sectionTitle}>*****************</Text>
@@ -81,9 +83,6 @@ const App: () => React$Node = () => {
               </Text>
             </View>
             <LearnMoreLinks />
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>All Climbing Routes</Text>
-            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -127,6 +126,10 @@ const styles = StyleSheet.create({
     padding: 4,
     paddingRight: 12,
     textAlign: 'right',
+  },
+  card: {
+    borderColor: Colors.black,
+    borderStyle: 'solid',
   },
 });
 
