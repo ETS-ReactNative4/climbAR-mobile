@@ -18,11 +18,11 @@ Setup:
 1. Download and unzip the font you want (e.g. Roboto can be downloaded [here](https://fonts.google.com/specimen/Roboto?selection.family=Roboto)
 2. Add the ttf files corresponding to the fonts that you want to the folder assets/fonts
 3. In ios/ClimbARmobile/info.plist add the names of the files you just added to the markup like this:
-
 	*Example adding all of the Roboto variations to an ios App*
 	
 `<key>UIAppFonts</key>
 	<array>
+	
 		<string>Roboto-Black.ttf</string>
 		<string>Roboto-BlackItalic.ttf</string>
 		<string>Roboto-Bold.ttf</string>
