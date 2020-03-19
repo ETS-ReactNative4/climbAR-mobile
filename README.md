@@ -21,19 +21,33 @@ Setup:
 	*Example adding all of the Roboto variations to an ios App*
 	
 `<key>UIAppFonts</key>`
-	`<array>`	
+
+	`<array>`
+	
 		`string>Roboto-Black.ttf</string>`
+		
 		`<string>Roboto-BlackItalic.ttf</string>`
+		
 		`<string>Roboto-Bold.ttf</string>`
+		
 		`<string>Roboto-BoldItalic.ttf</string>`
+		
 		`<string>Roboto-Italic.ttf</string>`
+		
 		`<string>Roboto-Light.ttf</string>`
+		
 		`<string>Roboto-LightItalic.ttf</string>`
+		
 		`<string>Roboto-Medium.ttf</string>`
+		
 		`<string>Roboto-MediumItalic.ttf</string>`
+		
 		`<string>Roboto-Regular.ttf</string>`
+		
 		`<string>Roboto-Thin.ttf</string>`
+		
 		`<string>Roboto-ThinItalic.ttf</string>`
+		
 	`</array>`
 	
 4. In you CLI in the root of the app run `npx react-native link`. You should see a message confirming that your assets were linked to the app
