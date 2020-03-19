@@ -21,9 +21,8 @@ Setup:
 	*Example adding all of the Roboto variations to an ios App*
 	
 `<key>UIAppFonts</key>`
-
 	`<array>`	
-		`<string>Roboto-Black.ttf</string>`
+		`string>Roboto-Black.ttf</string>`
 		`<string>Roboto-BlackItalic.ttf</string>`
 		`<string>Roboto-Bold.ttf</string>`
 		`<string>Roboto-BoldItalic.ttf</string>`
