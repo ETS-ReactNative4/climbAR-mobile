@@ -20,7 +20,9 @@ Setup:
 3. In ios/ClimbARmobile/info.plist add the names of the files you just added to the markup like this:
 	*Example adding all of the Roboto variations to an ios App*
 	
-`	<array>
+`	
+<key>UIAppFonts</key>
+	<array>
 	
 		string>Roboto-Black.ttf</string>
 		
