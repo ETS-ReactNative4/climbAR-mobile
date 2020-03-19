@@ -20,35 +20,35 @@ Setup:
 3. In ios/ClimbARmobile/info.plist add the names of the files you just added to the markup like this:
 	*Example adding all of the Roboto variations to an ios App*
 	
-`<key>UIAppFonts</key>`
+`<key>UIAppFonts</key>
 
-	`<array>`
+	<array>
 	
-		`string>Roboto-Black.ttf</string>`
+		string>Roboto-Black.ttf</string>
 		
-		`<string>Roboto-BlackItalic.ttf</string>`
+		<string>Roboto-BlackItalic.ttf</string>
 		
-		`<string>Roboto-Bold.ttf</string>`
+		<string>Roboto-Bold.ttf</string>
 		
-		`<string>Roboto-BoldItalic.ttf</string>`
+		<string>Roboto-BoldItalic.ttf</string>
 		
-		`<string>Roboto-Italic.ttf</string>`
+		<string>Roboto-Italic.ttf</string>
 		
-		`<string>Roboto-Light.ttf</string>`
+		<string>Roboto-Light.ttf</string>
 		
-		`<string>Roboto-LightItalic.ttf</string>`
+		<string>Roboto-LightItalic.ttf</string>
 		
-		`<string>Roboto-Medium.ttf</string>`
+		<string>Roboto-Medium.ttf</string>
 		
-		`<string>Roboto-MediumItalic.ttf</string>`
+		<string>Roboto-MediumItalic.ttf</string>
 		
-		`<string>Roboto-Regular.ttf</string>`
+		<string>Roboto-Regular.ttf</string>
 		
-		`<string>Roboto-Thin.ttf</string>`
+		<string>Roboto-Thin.ttf</string>
 		
-		`<string>Roboto-ThinItalic.ttf</string>`
+		<string>Roboto-ThinItalic.ttf</string>
 		
-	`</array>`
+	</array>`
 	
 4. In you CLI in the root of the app run `npx react-native link`. You should see a message confirming that your assets were linked to the app
 5. Terminate the ios simulator if it's running `ctrl+c`
