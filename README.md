@@ -22,9 +22,10 @@ Setup:
 	
 `	
 <key>UIAppFonts</key>
+
 	<array>
 	
-		string>Roboto-Black.ttf</string>
+		<string>Roboto-Black.ttf</string>
 		
 		<string>Roboto-BlackItalic.ttf</string>
 		
