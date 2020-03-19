@@ -51,7 +51,7 @@ Setup:
 		<string>Roboto-ThinItalic.ttf</string>
 		
 	</array>`
-5. `In you CLI in the root of the app run `npx react-native link`. You should see a message confirming that your assets were linked to the app
+5. In your CLI in the root of the app run `npx react-native link`. You should see a message confirming that your assets were linked to the app
 6. Terminate the ios simulator if it's running `ctrl+c`
 7. from the root of the app run `npm run ios`
 
