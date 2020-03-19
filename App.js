@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -24,6 +25,10 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import axios from 'axios';
+import {Button} from 'react-native-material-ui';
+import Topnav from './Topnav';
+
 const App: () => React$Node = () => {
   return (
     <>
@@ -32,21 +37,32 @@ const App: () => React$Node = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
+          <Topnav />
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
+              <Text style={styles.sectionTitle}>Our Code</Text>
+              <Text style={styles.sectionTitle}>*****************</Text>
+              <Button
+                raised
+                primary
+                onPress={() => {
+                  alert('You tapped the button!');
+                  axios
+                    .get('https://climbar.herokuapp.com/api/climbingroutes')
+                    .then(res => {
+                      alert(JSON.stringify(res.data));
+                    })
+                    .catch(e => {
+                      alert(e);
+                    });
+                }}
+                text="Press Me For Some Data"
+              />
+              <Text id="demo" />
             </View>
             <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Boilerplate Code</Text>
+              <Text style={styles.sectionTitle}>*****************</Text>
               <Text style={styles.sectionTitle}>See Your Changes</Text>
               <Text style={styles.sectionDescription}>
                 <ReloadInstructions />
