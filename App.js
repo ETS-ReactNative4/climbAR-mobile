@@ -81,6 +81,9 @@ const App: () => React$Node = () => {
               </Text>
             </View>
             <LearnMoreLinks />
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>All Climbing Routes</Text>
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
