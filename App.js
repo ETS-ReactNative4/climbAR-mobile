@@ -7,7 +7,11 @@
  * @flow
  */
 
-import React from 'react';
+import React, {Component} from 'react';
+import axios from 'axios';
+import {Provider} from 'react-redux';
+import store from './store';
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -25,10 +29,22 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import axios from 'axios';
 import {Button, Card} from 'react-native-material-ui';
+
 import Topnav from './Topnav';
 import ClimbingRoutes from './ClimbingRoutes';
+
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
+    );
+  }
+}
+
+export default App;
 
 const App: () => React$Node = () => {
   return (
