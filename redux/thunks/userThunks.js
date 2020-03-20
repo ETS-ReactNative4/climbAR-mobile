@@ -2,7 +2,7 @@ import axios from 'axios';
 import {setUser, statusMessage, logInSuccess, loggedInFail} from '../actions';
 import {FAIL, SUCCESS} from './utils';
 import chalk from 'chalk';
-import {getCookie, history} from '../../utils';
+import {getCookie} from '../../utils';
 import {fetchClimbingRoutes} from './climbingRoutesThunks';
 
 export const fetchUser = sessionId => {
@@ -52,8 +52,6 @@ export const logInUser = ({email, password}) => {
             text: 'Logged in successfully',
           }),
         );
-        //TO DO: redirect user to Home page if previous visited page is sign up
-        // window.history.back();
       })
       .catch(err => {
         console.log(err);
@@ -84,7 +82,6 @@ export const createUser = user => {
             text: 'Welcome to climbAR',
           }),
         );
-        // window.history.back();
       })
       .catch(() => {
         dispatch(
@@ -113,8 +110,6 @@ export const logoutUser = userId => {
             text: 'Logged out successfully',
           }),
         );
-        // TO DO: redirect to home
-        // window.history.go('/login');
       })
       .catch(err => {
         console.log('Error logging user out', err);

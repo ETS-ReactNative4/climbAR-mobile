@@ -29,7 +29,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {Button, Card} from 'react-native-material-ui';
+import {Button} from 'react-native-material-ui';
 
 import Topnav from './Topnav';
 import ClimbingRoutes from './ClimbingRoutes';
@@ -38,73 +38,124 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <AppNavigator />
+        <>
+          <StatusBar barStyle="dark-content" />
+          <SafeAreaView>
+            <ScrollView
+              contentInsetAdjustmentBehavior="automatic"
+              style={styles.scrollView}>
+              <Topnav />
+              <View style={styles.body}>
+                <ClimbingRoutes />
+                <View style={styles.sectionContainer}>
+                  <Text style={styles.sectionTitle}>Our Code</Text>
+                  <Text style={styles.sectionTitle}>*****************</Text>
+                  <Button
+                    raised
+                    primary
+                    onPress={() => {
+                      alert('You tapped the button!');
+                      axios
+                        .get('https://climbar.herokuapp.com/api/climbingroutes')
+                        .then(res => {
+                          alert(JSON.stringify(res.data));
+                        })
+                        .catch(e => {
+                          alert(e);
+                        });
+                    }}
+                    text="Press Me For Some Data"
+                  />
+                  <Text id="demo" />
+                </View>
+                <View style={styles.sectionContainer}>
+                  <Text style={styles.sectionTitle}>Boilerplate Code</Text>
+                  <Text style={styles.sectionTitle}>*****************</Text>
+                  <Text style={styles.sectionTitle}>See Your Changes</Text>
+                  <Text style={styles.sectionDescription}>
+                    <ReloadInstructions />
+                  </Text>
+                </View>
+                <View style={styles.sectionContainer}>
+                  <Text style={styles.sectionTitle}>Debug</Text>
+                  <Text style={styles.sectionDescription}>
+                    <DebugInstructions />
+                  </Text>
+                </View>
+                <View style={styles.sectionContainer}>
+                  <Text style={styles.sectionTitle}>Learn More</Text>
+                  <Text style={styles.sectionDescription}>
+                    Read the docs to discover what to do next:
+                  </Text>
+                </View>
+                <LearnMoreLinks />
+              </View>
+            </ScrollView>
+          </SafeAreaView>
+        </>
       </Provider>
     );
   }
 }
 
-export default App;
-
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Topnav />
-          <View style={styles.body}>
-            <ClimbingRoutes />
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Our Code</Text>
-              <Text style={styles.sectionTitle}>*****************</Text>
-              <Button
-                raised
-                primary
-                onPress={() => {
-                  alert('You tapped the button!');
-                  axios
-                    .get('https://climbar.herokuapp.com/api/climbingroutes')
-                    .then(res => {
-                      alert(JSON.stringify(res.data));
-                    })
-                    .catch(e => {
-                      alert(e);
-                    });
-                }}
-                text="Press Me For Some Data"
-              />
-              <Text id="demo" />
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Boilerplate Code</Text>
-              <Text style={styles.sectionTitle}>*****************</Text>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+// const App: () => React$Node = () => {
+//   return (
+//       <StatusBar barStyle="dark-content" />
+//       <SafeAreaView>
+//         <ScrollView
+//           contentInsetAdjustmentBehavior="automatic"
+//           style={styles.scrollView}>
+//           <Topnav />
+//           <View style={styles.body}>
+//             <ClimbingRoutes />
+//             <View style={styles.sectionContainer}>
+//               <Text style={styles.sectionTitle}>Our Code</Text>
+//               <Text style={styles.sectionTitle}>*****************</Text>
+//               <Button
+//                 raised
+//                 primary
+//                 onPress={() => {
+//                   alert('You tapped the button!');
+//                   axios
+//                     .get('https://climbar.herokuapp.com/api/climbingroutes')
+//                     .then(res => {
+//                       alert(JSON.stringify(res.data));
+//                     })
+//                     .catch(e => {
+//                       alert(e);
+//                     });
+//                 }}
+//                 text="Press Me For Some Data"
+//               />
+//               <Text id="demo" />
+//             </View>
+//             <View style={styles.sectionContainer}>
+//               <Text style={styles.sectionTitle}>Boilerplate Code</Text>
+//               <Text style={styles.sectionTitle}>*****************</Text>
+//               <Text style={styles.sectionTitle}>See Your Changes</Text>
+//               <Text style={styles.sectionDescription}>
+//                 <ReloadInstructions />
+//               </Text>
+//             </View>
+//             <View style={styles.sectionContainer}>
+//               <Text style={styles.sectionTitle}>Debug</Text>
+//               <Text style={styles.sectionDescription}>
+//                 <DebugInstructions />
+//               </Text>
+//             </View>
+//             <View style={styles.sectionContainer}>
+//               <Text style={styles.sectionTitle}>Learn More</Text>
+//               <Text style={styles.sectionDescription}>
+//                 Read the docs to discover what to do next:
+//               </Text>
+//             </View>
+//             <LearnMoreLinks />
+//           </View>
+//         </ScrollView>
+//       </SafeAreaView>
+//     </>
+//   );
+// };
 
 const styles = StyleSheet.create({
   scrollView: {
