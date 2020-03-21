@@ -8,7 +8,7 @@ import {fetchClimbingRoutes} from './climbingRoutesThunks';
 export const fetchUser = sessionId => {
   return dispatch => {
     return axios
-      .get(`/api/users/session/${sessionId}`)
+      .get(`https://climbar.herokuapp.com/api/users/session/${sessionId}`)
       .then(res => {
         console.log(chalk.cyan('returned value from get api', res.data));
         const {user, completedRouteInfo} = res.data;
@@ -38,7 +38,7 @@ export const fetchUser = sessionId => {
 export const logInUser = ({email, password}) => {
   return function thunk(dispatch) {
     return axios
-      .post(`/api/users/login`, {email, password})
+      .post('https://climbar.herokuapp.com/api/users/login', {email, password})
       .then(res => {
         const {user, completedRouteInfo} = res.data;
         user['completedRouteInfo'] = completedRouteInfo;
@@ -70,7 +70,7 @@ export const logInUser = ({email, password}) => {
 export const createUser = user => {
   return dispatch => {
     return axios
-      .post(`/api/users`, user)
+      .post('https://climbar.herokuapp.com/api/users', user)
       .then(res => {
         dispatch(setUser(res.data));
         dispatch(logInSuccess());
@@ -98,7 +98,7 @@ export const createUser = user => {
 export const logoutUser = userId => {
   return function thunk(dispatch) {
     return axios
-      .post(`/api/users/logout/${userId}`)
+      .post(`https://climbar.herokuapp.com/api/users/logout/${userId}`)
       .then(res => {
         console.log(res.data);
         dispatch(setUser(res.data));
@@ -120,7 +120,10 @@ export const logoutUser = userId => {
 export const likeRoute = (user, route) => {
   return function thunk(dispatch) {
     return axios
-      .post(`/api/users/routes/like`, {user, route})
+      .post('https://climbar.herokuapp.com/api/users/routes/like', {
+        user,
+        route,
+      })
       .then(res => {
         dispatch(fetchUser(getCookie()));
         dispatch(fetchClimbingRoutes());
@@ -134,7 +137,9 @@ export const likeRoute = (user, route) => {
 export const unLikeRoute = (user, route) => {
   return function thunk(dispatch) {
     return axios
-      .delete(`/api/users/routes/unlike`, {data: {user, route}})
+      .delete('https://climbar.herokuapp.com/api/users/routes/unlike', {
+        data: {user, route},
+      })
       .then(() => {
         dispatch(fetchUser(getCookie()));
         dispatch(fetchClimbingRoutes());
@@ -148,7 +153,10 @@ export const unLikeRoute = (user, route) => {
 export const markComplete = (user, route) => {
   return function thunk(dispatch) {
     return axios
-      .post(`/api/users/routes/complete`, {user, route})
+      .post('https://climbar.herokuapp.com/api/users/routes/complete', {
+        user,
+        route,
+      })
       .then(res => {
         dispatch(fetchUser(getCookie()));
         dispatch(fetchClimbingRoutes());
@@ -162,7 +170,9 @@ export const markComplete = (user, route) => {
 export const unComplete = (user, route) => {
   return function thunk(dispatch) {
     return axios
-      .delete(`/api/users/routes/uncomplete`, {data: {user, route}})
+      .delete('https://climbar.herokuapp.com/api/users/routes/uncomplete', {
+        data: {user, route},
+      })
       .then(res => {
         dispatch(fetchUser(getCookie()));
         dispatch(fetchClimbingRoutes());
@@ -176,7 +186,11 @@ export const unComplete = (user, route) => {
 export const rate = (user, route, rating) => {
   return function thunk(dispatch) {
     return axios
-      .post(`api/users/routes/rate`, {user, route, rating})
+      .post('https://climbar.herokuapp.com/api/users/routes/rate', {
+        user,
+        route,
+        rating,
+      })
       .then(() => {
         dispatch(fetchUser(getCookie()));
         dispatch(fetchClimbingRoutes());

@@ -8,7 +8,7 @@ import axios from 'axios';
 export const uploadRouteVideo = videoData => {
   return dispatch => {
     return axios
-      .post('/api/routevideos', videoData, {
+      .post('https://climbar.herokuapp.com/api/routevideos', videoData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -42,7 +42,7 @@ export const uploadRouteVideo = videoData => {
 export const removeRouteVideo = (video, routeId) => {
   return dispatch => {
     return axios
-      .delete(`/api/routevideos/${video.id}`)
+      .delete(`https://climbar.herokuapp.com/api/routevideos/${video.id}`)
       .then(() => {
         dispatch(fetchSingleClimbingRoute(routeId));
       })

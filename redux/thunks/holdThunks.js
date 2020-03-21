@@ -4,7 +4,7 @@ import axios from 'axios';
 export function fetchHolds() {
   return dispatch => {
     return axios
-      .get('/api/holds')
+      .get('https://climbar.herokuapp.com/api/holds')
       .then(res => {
         dispatch(setHolds(res.data));
       })

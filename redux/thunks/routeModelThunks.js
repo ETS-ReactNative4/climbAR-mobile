@@ -16,7 +16,7 @@ export function editRouteModel(model) {
     console.log('sending model to server for editing');
     console.log(model);
     return axios
-      .put('/api/routemodels/edit', model)
+      .put('https://climbar.herokuapp.com/api/routemodels/edit', model)
       .then(() => {
         dispatch(fetchRouteModels());
       })
@@ -44,7 +44,7 @@ export function editRouteModel(model) {
 export function editModel(model) {
   return dispatch => {
     axios
-      .get(`/api/holds`)
+      .get('https://climbar.herokuapp.com/api/holds')
       .then(res => {
         dispatch(setHolds(res.data));
         dispatch(setEditModel(model, res.data));
@@ -66,7 +66,7 @@ export function setNewDraggingHold(hold) {
 export function createRouteModel(model) {
   return dispatch => {
     return axios
-      .post(`/api/routemodels/new`, model)
+      .post('https://climbar.herokuapp.com/api/routemodels/new', model)
       .then(res => {
         console.log('this the response', res);
         dispatch(fetchSingleClimbingRoute(res.data.id));
@@ -94,7 +94,7 @@ export function createRouteModel(model) {
 export function fetchRouteModels() {
   return dispatch => {
     return axios
-      .get(`api/routemodels`)
+      .get('https://climbar.herokuapp.com/api/routemodels')
       .then(res => {
         dispatch(setRouteModels(res.data));
       })

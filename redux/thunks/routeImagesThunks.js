@@ -5,7 +5,7 @@ import axios from 'axios';
 export const uploadRouteImage = file => {
   return dispatch => {
     return axios
-      .post('/api/routeimages', file, {
+      .post('https://climbar.herokuapp.com/api/routeimages', file, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

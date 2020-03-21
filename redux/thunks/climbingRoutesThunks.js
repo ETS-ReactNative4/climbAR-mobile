@@ -4,7 +4,7 @@ import axios from 'axios';
 export const fetchClimbingRoutes = () => {
   return dispatch => {
     return axios
-      .get('/api/climbingroute')
+      .get('https://climbar.herokuapp.com/api/climbingroutes')
       .then(res => {
         dispatch(setClimbingRoutes(res.data));
       })
@@ -15,7 +15,7 @@ export const fetchClimbingRoutes = () => {
 export const fetchSingleClimbingRoute = id => {
   return dispatch => {
     axios
-      .get(`/api/climbingroutes/${id}`)
+      .get(`https://climbar.herokuapp.com/api/climbingroutes/${id}`)
       .then(res => dispatch(setClimbingRoute(res.data)))
       .catch(e => console.error(e));
   };
