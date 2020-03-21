@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+import {connect} from 'react-redux';
+
 import {
   Container,
   Header,
@@ -15,16 +16,7 @@ class climbingRoutes extends Component {
     routeList: [],
   };
 
-  componentDidMount() {
-    axios
-      .get('https://climbar.herokuapp.com/api/climbingroutes')
-      .then(res => res.data)
-      .then(data => {
-        // console.log(data);
-        this.setState({routeList: data});
-      })
-      .catch(err => console.log(err));
-  }
+  componentDidMount() {}
   render() {
     const {routeList} = this.state;
     return (
