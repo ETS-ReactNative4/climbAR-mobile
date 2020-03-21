@@ -7,17 +7,12 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-  }
-  logIn = () => {
-    this.props.navigation.navigate('Home');
-  };
-  signUp = () => {
-    this.props.navigation.navigate('Signup');
+export default class Signup extends Component {
+  loginScreen = () => {
+    this.props.navigation.navigate('Login');
   };
   render() {
     return (
@@ -29,6 +24,7 @@ export default class Login extends Component {
           />
           <Text> Welcome to ClimbAR </Text>
         </View>
+        <Text> Create your account for ClimbAR </Text>
         <TextInput
           style={styles.inputBox}
           placeholder="Email"
@@ -40,13 +36,19 @@ export default class Login extends Component {
           secureTextEntry={true}
           placeholderTextColor="#e4572e"
         />
-        <TouchableOpacity style={styles.button} onPress={this.logIn}>
-          <Text style={styles.buttonText}> Login </Text>
+        <TextInput
+          style={styles.inputBox}
+          placeholder="Confirm Password"
+          secureTextEntry={true}
+          placeholderTextColor="#e4572e"
+        />
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}> Sign Up </Text>
         </TouchableOpacity>
-        <View style={styles.signupTextContainer}>
-          <Text> Don't have an account yet?</Text>
-          <TouchableOpacity onPress={this.signUp}>
-            <Text style={styles.signupText}> Login </Text>
+        <View style={styles.LoginTextContainer}>
+          <Text> Already have an account?</Text>
+          <TouchableOpacity onPress={this.loginScreen} >
+            <Text style={styles.buttonText}> Sign Up </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -86,13 +88,13 @@ const styles = StyleSheet.create({
     color: '#e4572e',
     textAlign: 'center',
   },
-  signupTextContainer: {
+  LoginTextContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
   },
-  signupText: {
+  LoginText: {
     color: '#e4572e',
     fontSize: 16,
   },

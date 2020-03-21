@@ -28,41 +28,18 @@ import {
 import axios from 'axios';
 import {Button} from 'react-native-material-ui';
 import Topnav from './Topnav';
+import Login from './Login';
+import Signup from './Signup';
+import Home from './Home';
+import {NavigationContainer} from '@react-navigation/native';
+import NavigatorLogin from './routes/loginStack';
 
 const App: () => React$Node = () => {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Topnav />
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Our Code</Text>
-              <Text style={styles.sectionTitle}>*****************</Text>
-              <Button
-                raised
-                primary
-                onPress={() => {
-                  alert('You tapped the button!');
-                  axios
-                    .get('https://climbar.herokuapp.com/api/climbingroutes')
-                    .then(res => {
-                      alert(JSON.stringify(res.data));
-                    })
-                    .catch(e => {
-                      alert(e);
-                    });
-                }}
-                text="Press Me For Some Data"
-              />
-              <Text id="demo" />
-            </View>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      <NavigationContainer>
+        <NavigatorLogin/>
+      </NavigationContainer>
     </>
   );
 };
