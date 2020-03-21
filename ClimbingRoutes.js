@@ -20,7 +20,7 @@ class climbingRoutes extends Component {
       .get('https://climbar.herokuapp.com/api/climbingroutes')
       .then(res => res.data)
       .then(data => {
-        console.log(data);
+        // console.log(data);
         this.setState({routeList: data});
       })
       .catch(err => console.log(err));
