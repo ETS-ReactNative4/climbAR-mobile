@@ -135,10 +135,6 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
   },
-  card: {
-    borderColor: Colors.black,
-    borderStyle: 'solid',
-  },
 });
 
 export default App;
