@@ -1,26 +1,5 @@
-/* eslint-disable no-alert */
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import axios from 'axios';
-import {Provider} from 'react-redux';
-import store from '../store';
-
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
+import {StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity} from 'react-native';
 import {
   Header,
   LearnMoreLinks,
@@ -29,28 +8,41 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import axios from 'axios';
 import {Button} from 'react-native-material-ui';
-
 import Topnav from './Topnav';
-import ClimbingRoutes from './ClimbingRoutes';
-import Navigator from './Routes';
+import climbingRoutes from './ClimbingRoutes'; 
 
-class App extends Component {
+export default class Home extends Component {
+  allClimbingRoutes = () => {
+    this.props.navigation.navigate('ClimbingRoutes');
+  };
   render() {
     return (
-      <Provider store={store}>
-        <>
-          <Navigator />
-        </>
-      </Provider>
+      <SafeAreaView>
+        <Topnav />
+        <TouchableOpacity  onPress={this.allClimbingRoutes}>
+          <Text> Cllimbing Routes  </Text>
+        </TouchableOpacity>
+        <View style={styles.logoContainer}>
+          <Text> Connect Collaborate & Create Amazing Climbing Routes </Text>
+          <Image
+            style={{width: 350, height: 85}}
+            source={require('./../public/logo.png')}
+          />
+        </View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  logoContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 300,
   },
+
   engine: {
     position: 'absolute',
     right: 0,
@@ -85,5 +77,3 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
-
-export default App;
