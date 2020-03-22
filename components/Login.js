@@ -46,7 +46,7 @@ export default class Login extends Component {
         <View style={styles.signupTextContainer}>
           <Text> Don't have an account yet?</Text>
           <TouchableOpacity onPress={this.signUp}>
-            <Text style={styles.signupText}> Login </Text>
+            <Text style={styles.signupText}> Signup </Text>
           </TouchableOpacity>
         </View>
       </View>
