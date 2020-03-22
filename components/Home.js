@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity} from 'react-native';
 import {
   Header,
   LearnMoreLinks,
@@ -11,40 +11,24 @@ import {
 import axios from 'axios';
 import {Button} from 'react-native-material-ui';
 import Topnav from './Topnav';
+import climbingRoutes from './ClimbingRoutes'; 
 
 export default class Home extends Component {
+  allClimbingRoutes = () => {
+    this.props.navigation.navigate('ClimbingRoutes');
+  };
   render() {
     return (
       <SafeAreaView>
         <Topnav />
-        <View style={styles.body}>
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>Our Code</Text>
-            <Text style={styles.sectionTitle}>*****************</Text>
-            <Button
-              raised
-              primary
-              onPress={() => {
-                alert('You tapped the button!');
-                axios
-                  .get('https://climbar.herokuapp.com/api/climbingroutes')
-                  .then(res => {
-                    alert(JSON.stringify(res.data));
-                  })
-                  .catch(e => {
-                    alert(e);
-                  });
-              }}
-              text="Press Me For Some Data"
-            />
-            <Text id="demo" />
-          </View>
-        </View>
+        <TouchableOpacity  onPress={this.allClimbingRoutes}>
+          <Text> Cllimbing Routes  </Text>
+        </TouchableOpacity>
         <View style={styles.logoContainer}>
           <Text> Connect Collaborate & Create Amazing Climbing Routes </Text>
           <Image
             style={{width: 350, height: 85}}
-            source={require('./public/logo.png')}
+            source={require('./../public/logo.png')}
           />
         </View>
       </SafeAreaView>

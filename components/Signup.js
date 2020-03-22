@@ -20,7 +20,7 @@ export default class Signup extends Component {
         <View style={styles.logoContainer}>
           <Image
             style={{width: 350, height: 85}}
-            source={require('./public/logo.png')}
+            source={require('./../public/logo.png')}
           />
           <Text> Welcome to ClimbAR </Text>
         </View>
