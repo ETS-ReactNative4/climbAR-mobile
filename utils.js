@@ -10,15 +10,6 @@ export const htmlDate = addDays => {
   return `${year}-${month}-${day}`;
 };
 
-export const getCookie = () =>
-  document.cookie.split(';').filter(c => /session_id=/.test(c))[0]
-    ? document.cookie
-        .split(';')
-        .filter(c => /session_id=/.test(c))[0]
-        .replace(/session_id=/, '')
-        .replace(/ /, '')
-    : null;
-
 export const average = (arr, numberProp) =>
   arr.length === 0
     ? 0
