@@ -1,0 +1,15 @@
+export const SET_HOLD = Symbol('SET_HOLD');
+export const SET_DRAGGING_HOLD = Symbol('SET_DRAGGING_HOLD');
+export const SET_HOLDS = Symbol('SET_HOLDS');
+export const SET_ROUTE_MODELS = Symbol('SET_ROUTE_MODELS');
+export const SET_ROUTE_MODEL = Symbol('SET_ROUTE_MODEL');
+export const SET_EDIT_MODEL = Symbol('SET_EDIT_MODEL');
+export const SET_USER = Symbol('SET_USER');
+export const STATUS_MESSAGE = Symbol('STATUS_MESSAGE');
+export const SET_CLIMBING_ROUTES = Symbol('CLIMBING_ROUTES');
+export const SET_CLIMBING_ROUTE = Symbol('CLIMBING_ROUTE');
+export const SET_ROUTE_FILTERS = Symbol('SET_ROUTE_FILTERS');
+export const SET_ROUTE_IMAGE = Symbol('SET_ROUTE_IMAGE');
+export const SET_ROUTE_VIDEO = Symbol('SET_ROUTE_VIDEO');
+export const LOGIN_SUCCESS = Symbol('LOGIN_SUCCESS');
+export const LOGIN_FAILURE = Symbol('LOGIN_FAILURE');
