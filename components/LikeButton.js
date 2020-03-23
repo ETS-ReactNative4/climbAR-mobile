@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {likeRoute, unLikeRoute} from '../redux/thunks/userThunks';
 
-import {Left, Right, Body, Text, Button, Icon } from 'native-base';
-import {StyleSheet} from 'react-native';
+import {Left, Right, Body, Text, Button, Icon} from 'native-base';
+import {StyleSheet, View} from 'react-native';
 
 class LikeButton extends React.Component {
   constructor() {
@@ -41,7 +41,9 @@ class LikeButton extends React.Component {
             <Icon type="MaterialIcons" name="favorite-border" />
           )}
         </Button>
-        <Body style={styles.text}><Text>{route.likedRoutes.length}</Text></Body>
+        <View>
+          <Text>{route.likedRoutes.length}</Text>
+        </View>
       </Body>
     );
   }
@@ -59,12 +61,8 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'baseline',
+    alignItems: 'center',
   },
-  text: {
-    borderWidth:1,
-  }
-    
 });
 
 export default connect(mapState, mapDispatch)(LikeButton);

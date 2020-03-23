@@ -1,29 +1,50 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Container, Body} from 'native-base';
 
 const RatingDisplay = ({avgRating}) => {
-  return (
-    <View
-      style={{
-        width: 100,
-        height: 30,
-        borderColor: 'black',
-        borderWidth: 1,
-        backgroundColor: 'green',
-        position: 'relative',
-        display: 'flex',
-        justifyContent: 'flex-end',
-      }}>
+  if (avgRating < 5) {
+    return (
       <View
         style={{
-          height: '100%',
-          width: `${100 - (avgRating / 10) * 100}%`,
-          backgroundColor: 'white',
-          postion: 'absolute',
+          width: 80,
+          height: 25,
+          borderColor: 'black',
+          borderWidth: 1,
+          backgroundColor: '#5cb85c',
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'flex-end',
         }}></View>
-    </View>
-  );
+    );
+  } else if (avgRating > 4 && avgRating < 8) {
+    return (
+      <View
+        style={{
+          width: 80,
+          height: 25,
+          borderColor: 'black',
+          borderWidth: 1,
+          backgroundColor: '#f0ad4e',
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'flex-end',
+        }}></View>
+    );
+  } else {
+    return (
+      <View
+        style={{
+          width: 80,
+          height: 25,
+          borderColor: 'black',
+          borderWidth: 1,
+          backgroundColor: '#d9534f',
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'flex-end',
+        }}></View>
+    );
+  }
 };
 
 export default RatingDisplay;

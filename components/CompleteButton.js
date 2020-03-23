@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {markComplete, unComplete} from '../redux/thunks/userThunks';
 
 import {Left, Right, Body, Text, Button, Icon} from 'native-base';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 class CompleteButon extends React.Component {
   constructor() {
@@ -41,7 +41,9 @@ class CompleteButon extends React.Component {
             <Icon type="MaterialIcons" name="done" />
           )}
         </Button>
-        <Body style={styles.text}><Text>{route.completedRoutes.length}</Text></Body>
+        <View>
+          <Text>{route.completedRoutes.length}</Text>
+        </View>
       </Body>
     );
   }
@@ -59,11 +61,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'baseline',
+    alignItems: 'center',
   },
-  text: {
-    borderWidth:1,
-  }
-    
 });
 export default connect(mapState, mapDispatch)(CompleteButon);

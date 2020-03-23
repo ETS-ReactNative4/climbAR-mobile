@@ -7,7 +7,7 @@ import RatingDisplay from './RatingDisplay';
 import {average} from '../utils';
 
 import {Card, CardItem, Left, Right, Body, Text} from 'native-base';
-import {StyleSheet} from 'react-native';
+import {View} from 'react-native';
 
 class RouteTile extends Component {
   constructor() {
@@ -43,12 +43,12 @@ class RouteTile extends Component {
         <CardItem>
           <LikeButton route={route} />
           <CompleteButton route={route} />
+          <RatingDisplay avgRating={avgRating} />
+          <Text style={{paddingLeft: 5}}>Difficulty</Text>
         </CardItem>
         <CardItem>
-          <RatingDisplay avgRating={avgRating} />
-          <Text>Difficulty</Text>
-          {/* {user.userType && <RatingButon route={route} />} */}
           <Text>Expiring {daysToExpire()} </Text>
+          {/* {user.userType && <RatingButon route={route} />} */}
         </CardItem>
       </Card>
     );
