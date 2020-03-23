@@ -49,9 +49,6 @@ class climbingRoutes extends Component {
     } = this;
     return (
       <Container>
-        <Header>
-          <Text>All Climbing Routes</Text>
-        </Header>
         <Content>
           {climbingRoutes.map(climbingRoute => {
             return filter(climbingRoute) ? (

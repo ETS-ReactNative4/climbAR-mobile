@@ -7,6 +7,7 @@ import RatingDisplay from './RatingDisplay';
 import {average} from '../utils';
 
 import {Card, CardItem, Left, Right, Body, Text} from 'native-base';
+import {StyleSheet} from 'react-native';
 
 class RouteTile extends Component {
   constructor() {
@@ -32,29 +33,22 @@ class RouteTile extends Component {
       ['black', 'green', 'purple'].indexOf(route.holdColor) !== -1;
 
     console.log(user);
+    //to do: add link to grade
     return (
       <Card>
-        <CardItem>
-          <Text>{route.grade}</Text>
+        <CardItem
+          style={{backgroundColor: route.holdColor, justifyContent: 'center'}}>
+          <Text style={{fontWeight: 'bold'}}>{route.grade}</Text>
         </CardItem>
         <CardItem>
-          <Body>
-            <LikeButton route={route} />
-            <CompleteButton route={route} />
-          </Body>
+          <LikeButton route={route} />
+          <CompleteButton route={route} />
         </CardItem>
         <CardItem>
-          <Body>
-            <RatingDisplay avgRating={avgRating} />
-            <Text>Difficulty</Text>
-            {/* {user.userType && <RatingButon route={route} />} */}
-          </Body>
-        </CardItem>
-        <CardItem>
+          <RatingDisplay avgRating={avgRating} />
+          <Text>Difficulty</Text>
+          {/* {user.userType && <RatingButon route={route} />} */}
           <Text>Expiring {daysToExpire()} </Text>
-        </CardItem>
-        <CardItem>
-          <Text>More</Text>
         </CardItem>
       </Card>
     );
