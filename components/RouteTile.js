@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import LikeButton from './LikeButton';
 import CompleteButton from './CompleteButton';
-// import RatingButon from './RatingButton';
+import RatingButton from './RatingButton';
 import RatingDisplay from './RatingDisplay';
 import {average} from '../utils';
 
@@ -53,8 +53,8 @@ class RouteTile extends Component {
         </CardItem>
         <CardItem style={{justifyContent: 'center'}}>
           <Text>Expiring {daysToExpire()} </Text>
-          {/* {user.userType && <RatingButon route={route} />} */}
         </CardItem>
+        <CardItem>{user.userType && <RatingButton route={route} />}</CardItem>
       </Card>
     );
   }
