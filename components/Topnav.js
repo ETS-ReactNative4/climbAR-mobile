@@ -1,26 +1,58 @@
 import React from 'react';
-import {Toolbar} from 'react-native-material-ui';
+import {
+  StyleSheet,
+  View,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
+import {
+  LearnMoreLinks,
+  Colors,
+  DebugInstructions,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
 
-const Topnav = () => {
+import {
+  Container,
+  Header,
+  Body,
+  Text,
+  Icon,
+  Left,
+  Right,
+  Title,
+  Button,
+} from 'native-base';
+
+const TopNav = ({scene, previous, navigation}) => {
+  // const {options} = scene.descriptor;
+  // const title =
+  //   options.headerTitle !== undefined
+  //     ? options.headerTitle
+  //     : options.title !== undefined
+  //     ? options.title
+  //     : scene.route.name;
   return (
-    <Toolbar
-      leftElement="menu"
-      centerElement="Searchable"
-      searchable={{
-        autoFocus: true,
-        placeholder: 'Search',
-      }}
-      rightElement={{
-        menu: {
-          icon: 'more-vert',
-          labels: ['item 1', 'item 2'],
-        },
-      }}
-      onRightElementPress={label => {
-        console.log(label);
-      }}
-    />
+    <Container>
+      <Header>
+        <Left>
+          <Button transparent>
+            <Icon name="arrow-back" />
+            <Text>previous</Text>
+          </Button>
+        </Left>
+        <Body>
+          <Title>Title</Title>
+        </Body>
+        <Right>
+          <Button transparent>
+            <Icon name="menu" />
+          </Button>
+        </Right>
+      </Header>
+    </Container>
   );
 };
 
-export default Topnav;
+export default TopNav;

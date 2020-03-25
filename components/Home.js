@@ -1,17 +1,22 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity} from 'react-native';
 import {
-  Header,
+  StyleSheet,
+  View,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
+import {
   LearnMoreLinks,
   Colors,
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {Text} from 'native-base';
+import TopNav from './TopNav';
 import axios from 'axios';
-import {Button} from 'react-native-material-ui';
-import Topnav from './Topnav';
-import climbingRoutes from './ClimbingRoutes'; 
+import climbingRoutes from './ClimbingRoutes';
 
 export default class Home extends Component {
   allClimbingRoutes = () => {
@@ -20,10 +25,14 @@ export default class Home extends Component {
   render() {
     return (
       <SafeAreaView>
-        <Topnav />
-        <TouchableOpacity  onPress={this.allClimbingRoutes}>
-          <Text> Cllimbing Routes  </Text>
-        </TouchableOpacity>
+        <View>
+          <TopNav />
+        </View>
+        <View>
+          <TouchableOpacity onPress={this.allClimbingRoutes}>
+            <Text> Cllimbing Routes </Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.logoContainer}>
           <Text> Connect Collaborate & Create Amazing Climbing Routes </Text>
           <Image

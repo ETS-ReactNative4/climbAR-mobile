@@ -11,6 +11,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Provider} from 'react-redux';
 import store from '../store';
+import TopNav from './TopNav';
 
 import {
   SafeAreaView,
@@ -31,7 +32,6 @@ import {
 
 import {Button} from 'react-native-material-ui';
 
-import Topnav from './Topnav';
 import ClimbingRoutes from './ClimbingRoutes';
 import Navigator from './Routes';
 
