@@ -1,16 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
 
-import {
-  Container,
-  Header,
-  Content,
-  Card,
-  CardItem,
-  Body,
-  Text,
-} from 'native-base';
+import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
+import RouteTile from './RouteTile';
+
+import {Container, Header, Content, Text, Card, CardItem} from 'native-base';
 
 class climbingRoutes extends Component {
   constructor() {
@@ -55,17 +49,15 @@ class climbingRoutes extends Component {
     } = this;
     return (
       <Container>
-        <Header>
-          <Text>All Climbing Routes</Text>
-        </Header>
         <Content>
           {climbingRoutes.map(climbingRoute => {
             return filter(climbingRoute) ? (
-              <Card>
-                <CardItem>
-                  <Text>{climbingRoute.grade}</Text>
-                </CardItem>
-              </Card>
+              <RouteTile
+                key={climbingRoute.id}
+                route={climbingRoute}
+                user={user}
+                editModel={editModel}
+              />
             ) : (
               ''
             );
