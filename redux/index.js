@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import {reducer as formReducer} from 'redux-form';
 
 import {
   holds,
@@ -10,6 +11,7 @@ import {
   routeFilters,
   routeImage,
   logInAuth,
+  authReducer,
 } from './reducers';
 
 export default combineReducers({
@@ -22,4 +24,6 @@ export default combineReducers({
   routeFilters,
   routeImage,
   logInAuth,
+  authReducer,
+  form: formReducer
 });

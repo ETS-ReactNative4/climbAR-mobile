@@ -8,18 +8,10 @@
  */
 
 import React, {Component} from 'react';
-import axios from 'axios';
 import {Provider} from 'react-redux';
 import store from '../store';
 
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import {StyleSheet, ScrollView, View, StatusBar} from 'react-native';
 
 import {
   Header,
@@ -30,18 +22,21 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import {Button} from 'react-native-material-ui';
-
 import Topnav from './Topnav';
 import ClimbingRoutes from './ClimbingRoutes';
-import Navigator from './Routes';
+import Main from './Main';
+import {PersistGate} from 'redux-persist/integration/react';
+import persist from './../store';
 
+//persist is returning a function from the store, will have to invoke 
+const persistStore  = persist();
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <>
-          <Navigator />
-        </>
+      <Provider store={persistStore.store}>
+        <PersistGate loading={null} persistor={persistStore.persistor}>
+          <Main />
+        </PersistGate>
       </Provider>
     );
   }

@@ -198,3 +198,7 @@ export const logInAuth = (state = {logInStatus: null}, action) => {
       return state;
   }
 };
+
+export const authReducer = (state = {}, action) => {
+  return state;
+};
