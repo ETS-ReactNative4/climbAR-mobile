@@ -10,8 +10,14 @@ import {
 } from 'react-native';
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    email: "",
+    password: ""
+  }
+  onChangeHandler = (state,value) => {
+    this.setState({
+      [state]:value
+    })
   }
   logIn = () => {
     this.props.navigation.navigate('Home');
@@ -33,12 +39,14 @@ export default class Login extends Component {
           style={styles.inputBox}
           placeholder="Email"
           placeholderTextColor="#e4572e"
+          onChange={this.onChangeHandler}
         />
         <TextInput
           style={styles.inputBox}
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#e4572e"
+          onChange={this.onChangeHandler}
         />
         <TouchableOpacity style={styles.button} onPress={this.logIn}>
           <Text style={styles.buttonText}> Login </Text>

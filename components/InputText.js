@@ -32,7 +32,6 @@ const defaultProps = {
   value: '',
   placeholder: '',
   maxLength: 200,
-  keyboardType: 'default',
   secureTextEntry: false,
   label: '',
 };
@@ -46,7 +45,6 @@ class InputText extends Component {
       value,
       placeholder,
       maxLength,
-      keyboardType,
       secureTextEntry,
       label,
     } = this.props;
@@ -55,12 +53,12 @@ class InputText extends Component {
         <TextInput
           placeholder={placeholder}
           secureTextEntry={secureTextEntry}
-          keyboardType={keyboardType}
           maxLength={maxLength}
           returnKeyType="next"
           value={value}
           onSubmitEditing={onSubmitEditing}
           onChangeText={onChangeText}
+          style={styles.inputBox}
         />
       </View>
     );

@@ -199,6 +199,19 @@ export const logInAuth = (state = {logInStatus: null}, action) => {
   }
 };
 
-export const authReducer = (state = {}, action) => {
+export const authReducer = (
+  state = {
+    user: null,
+    isLoggedIn: false,
+    isError: false,
+    errors: null,
+    token: null,
+  },
+  action,
+) => {
   return state;
+};
+
+export const createUser = (state = {}, action) => {
+  return state; 
 };

@@ -75,14 +75,6 @@ export const createUser = user => {
         dispatch(setUser(res.data));
         dispatch(logInSuccess());
       })
-      .then(() => {
-        dispatch(
-          statusMessage({
-            status: SUCCESS,
-            text: 'Welcome to climbAR',
-          }),
-        );
-      })
       .catch(() => {
         dispatch(
           statusMessage({

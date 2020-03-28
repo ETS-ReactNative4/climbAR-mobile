@@ -44,15 +44,16 @@ const styles = StyleSheet.create({
     color: '#e4572e',
     textAlign: 'center',
   },
-  LoginTextContainer: {
+  loginTextContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
   },
-  LoginText: {
+  errorText: {
     color: '#e4572e',
-    fontSize: 16,
+    fontSize: 12,
+    paddingHorizontal: 16,
   },
 });
 
@@ -60,7 +61,10 @@ class Signup extends Component {
   loginScreen = () => {
     this.props.navigation.navigate('Login');
   };
-  //destructor the inputbox
+  onSubmit = values => {
+    console.log(values);
+  };
+  //destructoring the inputbox
   renderTextInput = field => {
     const {
       meta: {touched, error},
@@ -79,12 +83,15 @@ class Signup extends Component {
           placeholder={placeholder}
           keyboardType={keyboardType}
           label={label}
+          secureTextEntry={secureTextEntry}
           {...restInput}
         />
+        {touched && error && <Text style={styles.errorText}>{error}</Text>}
       </View>
     );
   };
   render() {
+    const {handleSubmit} = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.logoContainer}>
@@ -95,28 +102,10 @@ class Signup extends Component {
           <Text> Welcome to ClimbAR </Text>
         </View>
         <Text> Create your account for ClimbAR </Text>
-
-        {/* <TextInput
-          style={styles.inputBox}
-          placeholder="Email"
-          placeholderTextColor="#e4572e"
-        />
-        <TextInput
-          style={styles.inputBox}
-          placeholder="Password"
-          secureTextEntry={true}
-          placeholderTextColor="#e4572e"
-        />
-        <TextInput
-          style={styles.inputBox}
-          placeholder="Confirm Password"
-          secureTextEntry={true}
-          placeholderTextColor="#e4572e"
-        /> */}
         <Field
           style={styles.inputBox}
-          name="name"
-          label="name"
+          name="email"
+          label="email"
           placeholder="Email"
           component={this.renderTextInput}
         />
@@ -126,6 +115,7 @@ class Signup extends Component {
           label="password"
           placeholder="Password"
           component={this.renderTextInput}
+          secureTextEntry={true}
         />
         <Field
           style={styles.inputBox}
@@ -133,11 +123,14 @@ class Signup extends Component {
           label="confirmPassword"
           placeholder="Confirm Password"
           component={this.renderTextInput}
+          secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSubmit(this.onSubmit)}>
           <Text style={styles.buttonText}> Sign Up </Text>
         </TouchableOpacity>
-        <View style={styles.LoginTextContainer}>
+        <View style={styles.loginTextContainer}>
           <Text> Already have an account?</Text>
           <TouchableOpacity onPress={this.loginScreen}>
             <Text style={styles.buttonText}> Login </Text>
@@ -148,6 +141,26 @@ class Signup extends Component {
   }
 }
 
+// creating validate function
+const validate = values => {
+  const errors = {};
+  const {email, password, confirmPassword} = values;
+  if (!email) {
+    errors.email = 'Email is required';
+  }
+  if (!password) {
+    errors.password = 'Password is required';
+  }
+  if (!confirmPassword) {
+    errors.confirmPassword = 'Please Confirm your password';
+  }
+  if (password !== confirmPassword) {
+    errors.confirmPassword = 'Passwords do not match';
+  }
+  return errors;
+};
+
 export default reduxForm({
   form: 'Signup',
+  validate,
 })(Signup);
