@@ -1,9 +1,10 @@
 import axios from 'axios';
-import {setUser, statusMessage} from '../actions';
+import {setUser, statusMessage, getToken, tokenError} from '../actions';
 import {FAIL, SUCCESS} from './utils';
 import chalk from 'chalk';
 import {getCookie} from '../../utils';
 import {fetchClimbingRoutes} from './climbingRoutesThunks';
+import {AsyncStorage} from 'react-native';
 
 export const fetchUser = sessionId => {
   return dispatch => {
@@ -195,5 +196,17 @@ export const rate = (user, route, rating) => {
       .catch(err => {
         console.log('Error rating a route ', err);
       });
+  };
+};
+
+export const getUserToken = userId => {
+  return function thunk(dispatch) {
+    // AsyncStorage.getItem(userId ? userId : 'dummy-auth-token')
+    // .then((data) => {
+    //   dispatch(getToken(data));
+    // })
+    // .catch((err) => {
+    //   dispatch(tokenError(err.message || 'ERROR'))
+    // }
   };
 };

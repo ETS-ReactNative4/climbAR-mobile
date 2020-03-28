@@ -6,7 +6,7 @@ import RouteTile from './RouteTile';
 
 import {Container, Header, Content, Text, Card, CardItem} from 'native-base';
 
-class climbingRoutes extends Component {
+class ClimbingRoutes extends Component {
   constructor() {
     super();
     this.filter = this.filter.bind(this);
@@ -80,4 +80,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(climbingRoutes);
+export default connect(mapState, mapDispatch)(ClimbingRoutes);
