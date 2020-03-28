@@ -11,9 +11,11 @@ import {
   SET_ROUTE_FILTERS,
   SET_ROUTE_IMAGE,
   SET_ROUTE_VIDEO,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
   SET_EDIT_MODEL,
+  GET_TOKEN,
+  SAVE_TOKEN,
+  REMOVE_TOKEN,
+  TOKEN_ERROR,
 } from './constants';
 
 export const setEditModel = (model, holdsData) => {
@@ -108,14 +110,29 @@ export const setRouteImage = image => {
   };
 };
 
-export const logInSuccess = () => {
+export const getToken = token => {
   return {
-    type: LOGIN_SUCCESS,
+    type: GET_TOKEN,
+    token,
   };
 };
 
-export const loggedInFail = () => {
+export const saveToken = token => {
   return {
-    type: LOGIN_FAILURE,
+    type: SAVE_TOKEN,
+    token,
+  };
+};
+
+export const removeToken = () => {
+  return {
+    type: REMOVE_TOKEN,
+  };
+};
+
+export const tokenError = error => {
+  return {
+    type: TOKEN_ERROR,
+    error,
   };
 };

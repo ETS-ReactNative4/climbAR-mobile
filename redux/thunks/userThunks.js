@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {setUser, statusMessage, logInSuccess, loggedInFail} from '../actions';
+import {setUser, statusMessage} from '../actions';
 import {FAIL, SUCCESS} from './utils';
 import chalk from 'chalk';
 import {getCookie} from '../../utils';
@@ -43,7 +43,6 @@ export const logInUser = ({email, password}) => {
         const {user, completedRouteInfo} = res.data;
         user['completedRouteInfo'] = completedRouteInfo;
         dispatch(setUser(user));
-        dispatch(logInSuccess());
       })
       .then(() => {
         dispatch(
@@ -55,7 +54,6 @@ export const logInUser = ({email, password}) => {
       })
       .catch(err => {
         console.log(err);
-        dispatch(loggedInFail());
         dispatch(
           statusMessage({
             status: FAIL,
@@ -73,7 +71,6 @@ export const createUser = user => {
       .post('https://climbar.herokuapp.com/api/users', user)
       .then(res => {
         dispatch(setUser(res.data));
-        dispatch(logInSuccess());
       })
       .then(() => {
         dispatch(
