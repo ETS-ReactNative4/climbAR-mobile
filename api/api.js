@@ -1,4 +1,4 @@
-const BASE_URL = 'http://climbar.herokuapp.com/';
+const BASE_URL = 'climbar.herokuapp.com/';
 
 export const api = async (url, method, body = null, headers = {}) => {
   try {
@@ -42,14 +42,14 @@ export const fetchApi = async (
     const result = {
       token: null,
       success: false,
-      responseBody: null
-    }
+      responseBody: null,
+    };
     if (token) {
       headers['x-auth'] = token;
     }
     const response = await api(url, method, body, headers);
     if (response.status === statusCode) {
-      result.success = true; 
+      result.success = true;
       const responseBody = await response.json();
       return responseBody;
     }
