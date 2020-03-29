@@ -26,7 +26,7 @@ class Navigator extends Component {
   };
 
   render() {
-    console.log(this.props.token.token);
+    console.log('token is: ', this.props.token.token);
     return (
       <NavigationContainer>
         <Stack.Navigator>
