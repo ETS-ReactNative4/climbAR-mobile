@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
+import {removeUserToken} from '../redux/thunks/userThunks';
 import RouteTile from './RouteTile';
 
 import {Container, Header, Content, Text, Card, CardItem} from 'native-base';
