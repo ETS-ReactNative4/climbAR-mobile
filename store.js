@@ -7,7 +7,7 @@ import {persistStore, persistReducer} from 'redux-persist';
 import rootReducer from './redux/index';
 import AsyncStorage from '@react-native-community/async-storage';
 
-//Redux Persist takes your Redux state object and saves it to persisted storage. Then on app launch it retrieves this persisted state and saves it back to redux, similar to having cookies on the web 
+//Redux Persist takes your Redux state object and saves it to persisted storage. Then on app launch it retrieves this persisted state and saves it back to redux, similar to having cookies on the web
 const middleware = [
   thunkMiddleware.withExtraArgument({axios}),
   createLogger({collapsed: true}),
@@ -17,7 +17,7 @@ const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   //the redux form in sign up can refresh
-  whitelist: ["authReducer"]
+  whitelist: ['authReducer'],
 };
 
 //will store the data locally in the reducers

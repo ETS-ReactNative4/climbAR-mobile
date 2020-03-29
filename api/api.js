@@ -39,11 +39,17 @@ export const fetchApi = async (
 ) => {
   try {
     const headers = {};
+    const result = {
+      token: null,
+      success: false,
+      responseBody: null
+    }
     if (token) {
       headers['x-auth'] = token;
     }
     const response = await api(url, method, body, headers);
     if (response.status === statusCode) {
+      result.success = true; 
       const responseBody = await response.json();
       return responseBody;
     }

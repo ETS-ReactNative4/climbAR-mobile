@@ -12,6 +12,7 @@ import {
   routeImage,
   logInAuth,
   authReducer,
+  createUser
 } from './reducers';
 
 export default combineReducers({
@@ -25,5 +26,6 @@ export default combineReducers({
   routeImage,
   logInAuth,
   authReducer,
-  form: formReducer
+  form: formReducer,
+  createUser,
 });

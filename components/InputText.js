@@ -37,7 +37,21 @@ const defaultProps = {
 };
 
 class InputText extends Component {
+  state = {
+    value: '',
+  };
+  onChangeText = value => {
+    this.setState(
+      {
+        value,
+      },
+      () => {
+        this.props.onChangeText(value);
+      },
+    );
+  };
   render() {
+    console.log(this.props.value)
     const {
       mapElement,
       onSubmitEditing,
@@ -55,9 +69,9 @@ class InputText extends Component {
           secureTextEntry={secureTextEntry}
           maxLength={maxLength}
           returnKeyType="next"
-          value={value}
+          value={this.state.value}
           onSubmitEditing={onSubmitEditing}
-          onChangeText={onChangeText}
+          onChangeText={this.onChangeText}
           style={styles.inputBox}
         />
       </View>

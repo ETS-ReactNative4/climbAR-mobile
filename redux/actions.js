@@ -119,3 +119,10 @@ export const loggedInFail = () => {
     type: LOGIN_FAILURE,
   };
 };
+
+// export const createNewUser = (payload) => {
+//   return {
+//     type: "User",
+//     payload: "adkfl;adfaadf"
+//   }
+// }

@@ -4,6 +4,7 @@ import {FAIL, SUCCESS} from './utils';
 import chalk from 'chalk';
 import {getCookie} from '../../utils';
 import {fetchClimbingRoutes} from './climbingRoutesThunks';
+import {fetchApi} from '../../api/api';
 
 export const fetchUser = sessionId => {
   return dispatch => {
@@ -67,25 +68,45 @@ export const logInUser = ({email, password}) => {
 };
 
 //Thunk for creating a user
-export const createUser = user => {
-  return dispatch => {
-    return axios
-      .post('https://climbar.herokuapp.com/api/users', user)
-      .then(res => {
-        dispatch(setUser(res.data));
-        dispatch(logInSuccess());
-      })
-      .catch(() => {
-        dispatch(
-          statusMessage({
-            status: FAIL,
-            text: 'There was an error signing up!',
-          }),
-        );
-      });
+// export const createUser = user => {
+//   return dispatch => {
+//     return axios
+//       .post('https://climbar.herokuapp.com/api/users', user)
+//       // .then(res => {
+//       //   dispatch(setUser(res.data));
+//       // })
+//       .catch(() => {
+//         dispatch(
+//           statusMessage({
+//             status: FAIL,
+//             text: 'There was an error signing up!',
+//           }),
+//         );
+//       });
+//   };
+// };
+
+export const createNewUser = payload => {
+  return async (dispatch) => {
+    try {
+      const response = await fetchApi('api/users', 'POST', payload, 200);
+      console.log(
+        'this is the response', response 
+      )
+    } catch (e) {}
   };
 };
-
+// export const createNewUser = userData => {
+//   return dispatch => {
+//     return fetchApi('/api/users', 'POST', userData, 200)
+//       .then(res => {
+//         console.log(res);
+//       })
+//       .catch(e => {
+//         console.log(e);
+//       });
+//   };
+// };
 // log out a user
 export const logoutUser = userId => {
   return function thunk(dispatch) {

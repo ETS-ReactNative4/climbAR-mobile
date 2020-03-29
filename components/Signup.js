@@ -9,8 +9,11 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
+import {connect} from 'react-redux';
+import {compose} from 'redux';
 import {Field, reduxForm} from 'redux-form';
 import InputText from './InputText';
+import {createNewUser} from '../redux/thunks/userThunks';
 
 const styles = StyleSheet.create({
   container: {
@@ -61,8 +64,11 @@ class Signup extends Component {
   loginScreen = () => {
     this.props.navigation.navigate('Login');
   };
+  createNewUser = values => {
+    this.props.dispatch(createNewUser(values));
+  };
   onSubmit = values => {
-    console.log(values);
+    this.createNewUser(values);
   };
   //destructoring the inputbox
   renderTextInput = field => {
@@ -90,6 +96,7 @@ class Signup extends Component {
       </View>
     );
   };
+
   render() {
     const {handleSubmit} = this.props;
     return (
@@ -160,7 +167,14 @@ const validate = values => {
   return errors;
 };
 
-export default reduxForm({
-  form: 'Signup',
-  validate,
-})(Signup);
+const mapDispatchToProps = dispatch => ({
+  dispatch,
+});
+//composing the functions with connect and redux form
+export default compose(
+  connect(null, mapDispatchToProps),
+  reduxForm({
+    form: 'register',
+    validate,
+  }),
+)(Signup);
