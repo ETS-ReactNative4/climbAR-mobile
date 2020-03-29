@@ -13,3 +13,4 @@ export const SET_ROUTE_IMAGE = Symbol('SET_ROUTE_IMAGE');
 export const SET_ROUTE_VIDEO = Symbol('SET_ROUTE_VIDEO');
 export const LOGIN_SUCCESS = Symbol('LOGIN_SUCCESS');
 export const LOGIN_FAILURE = Symbol('LOGIN_FAILURE');
+export const TOGGLE_FILTER_DRAWER = Symbol('TOGGLE_FILTER_DRAWER');
