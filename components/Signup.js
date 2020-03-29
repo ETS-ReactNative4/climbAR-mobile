@@ -10,7 +10,29 @@ import {
   Button,
 } from 'react-native';
 
-export default class Signup extends Component {
+import {connect} from 'react-redux';
+import {saveUserToken} from '../redux/thunks/userThunks';
+//to do: add email validation
+class Signup extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  signUp = () => {
+    this.props
+      .saveUserToken()
+      .then(() => {
+        this.props.navigation.navigate('Home');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   loginScreen = () => {
     this.props.navigation.navigate('Login');
   };
@@ -29,25 +51,28 @@ export default class Signup extends Component {
           style={styles.inputBox}
           placeholder="Email"
           placeholderTextColor="#e4572e"
+          onChangeText={value => this.setState({email: value})}
         />
         <TextInput
           style={styles.inputBox}
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#e4572e"
+          onChangeText={value => this.setState({password: value})}
         />
         <TextInput
           style={styles.inputBox}
           placeholder="Confirm Password"
           secureTextEntry={true}
           placeholderTextColor="#e4572e"
+          onChangeText={value => this.setState({password: value})}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={this.signUp}>
           <Text style={styles.buttonText}> Sign Up </Text>
         </TouchableOpacity>
         <View style={styles.LoginTextContainer}>
           <Text> Already have an account?</Text>
-          <TouchableOpacity onPress={this.loginScreen} >
+          <TouchableOpacity onPress={this.loginScreen}>
             <Text style={styles.buttonText}> Login </Text>
           </TouchableOpacity>
         </View>
@@ -99,3 +124,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+const mapState = state => ({
+  token: state.token,
+});
+
+const mapDispatch = dispatch => ({
+  saveUserToken: () => dispatch(saveUserToken()),
+});
+
+export default connect(mapState, mapDispatch)(Signup);

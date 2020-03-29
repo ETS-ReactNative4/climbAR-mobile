@@ -11,20 +11,6 @@ const Stack = createStackNavigator();
 
 import {getUserToken} from '../redux/thunks/userThunks';
 
-//function to create a new stack navigator, pass an object into function to configure what different screens we want to register for this stack navigator
-// export default Navigator = () => {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         <Stack.Screen name="Login" component={Login} />
-//         <Stack.Screen name="Home" component={Home} />
-//         <Stack.Screen name="Signup" component={Signup} />
-//         <Stack.Screen name="ClimbingRoutes" component={climbingRoutes} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// };
-
 class Navigator extends Component {
   static navigationOptions = {
     header: null,
@@ -33,25 +19,26 @@ class Navigator extends Component {
     super();
   }
   componentDidMount() {
-    this._bootstrapAsync(this.props.user.id);
+    this._bootstrapAsync();
   }
-  _bootstrapAsync = userId => {
-    this.props.getUserToken(userId).catch(error => console.error(error));
+  _bootstrapAsync = () => {
+    this.props.getUserToken().catch(error => console.error(error));
   };
 
   render() {
+    console.log(this.props.token.token);
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          {this.props.logInAuth.token === null ? (
+          {this.props.token.token === null ? (
             <>
               <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="SignUp" component={Signup} />
+              <Stack.Screen name="Signup" component={Signup} />
             </>
           ) : (
             <>
               <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="ClimbingRoute" component={ClimbingRoutes} />
+              <Stack.Screen name="ClimbingRoutes" component={ClimbingRoutes} />
             </>
           )}
         </Stack.Navigator>
@@ -60,7 +47,7 @@ class Navigator extends Component {
   }
 }
 
-const mapState = ({LogInAuth, user}) => ({LogInAuth, user});
+const mapState = ({token}) => ({token});
 const mapDispatch = dispatch => {
   return {
     getUserToken: () => dispatch(getUserToken()),

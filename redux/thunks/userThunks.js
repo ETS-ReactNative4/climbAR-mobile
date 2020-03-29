@@ -1,5 +1,12 @@
 import axios from 'axios';
-import {setUser, statusMessage, getToken, tokenError} from '../actions';
+import {
+  setUser,
+  statusMessage,
+  getToken,
+  saveToken,
+  removeToken,
+  tokenError,
+} from '../actions';
 import {FAIL, SUCCESS} from './utils';
 import chalk from 'chalk';
 import {getCookie} from '../../utils';
@@ -199,14 +206,38 @@ export const rate = (user, route, rating) => {
   };
 };
 
-export const getUserToken = userId => {
+export const getUserToken = () => {
   return function thunk(dispatch) {
-    // AsyncStorage.getItem(userId ? userId : 'dummy-auth-token')
-    // .then((data) => {
-    //   dispatch(getToken(data));
-    // })
-    // .catch((err) => {
-    //   dispatch(tokenError(err.message || 'ERROR'))
-    // }
+    return AsyncStorage.getItem('dummy-auth-token')
+      .then(data => {
+        dispatch(getToken(data));
+      })
+      .catch(err => {
+        dispatch(tokenError(err.message || 'ERROR'));
+      });
+  };
+};
+
+export const saveUserToken = () => {
+  return function thunk(dispatch) {
+    return AsyncStorage.setItem('userToken', 'abc')
+      .then(() => {
+        dispatch(saveToken('token saved'));
+      })
+      .catch(err => {
+        dispatch(tokenError(err.message || 'ERROR'));
+      });
+  };
+};
+
+export const removeUserToken = () => {
+  return function thunk(dispatch) {
+    return AsyncStorage.removeItem('userToken')
+      .then(() => {
+        dispatch(removeToken());
+      })
+      .catch(err => {
+        dispatch(tokenError(err.message || 'ERROR'));
+      });
   };
 };

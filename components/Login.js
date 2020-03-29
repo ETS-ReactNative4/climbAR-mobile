@@ -8,13 +8,28 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import {connect} from 'react-redux';
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
+import {saveUserToken} from '../redux/thunks/userThunks';
+
+//to do: add email validation
+class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+    };
   }
   logIn = () => {
-    this.props.navigation.navigate('Home');
+    this.props
+      .saveUserToken()
+      .then(() => {
+        this.props.navigation.navigate('Home');
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
   signUp = () => {
     this.props.navigation.navigate('Signup');
@@ -33,12 +48,14 @@ export default class Login extends Component {
           style={styles.inputBox}
           placeholder="Email"
           placeholderTextColor="#e4572e"
+          onChangeText={value => this.setState({email: value})}
         />
         <TextInput
           style={styles.inputBox}
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#e4572e"
+          onChangeText={value => this.setState({password: value})}
         />
         <TouchableOpacity style={styles.button} onPress={this.logIn}>
           <Text style={styles.buttonText}> Login </Text>
@@ -97,3 +114,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+const mapState = state => ({
+  token: state.token,
+});
+
+const mapDispatch = dispatch => ({
+  saveUserToken: () => dispatch(saveUserToken()),
+});
+
+export default connect(mapState, mapDispatch)(Login);

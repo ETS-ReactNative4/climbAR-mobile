@@ -190,7 +190,7 @@ export const routeVideo = (state = {}, action) => {
   }
 };
 
-export const logInAuth = (
+export const token = (
   state = {
     token: {},
     error: null,
