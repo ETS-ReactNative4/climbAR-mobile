@@ -10,6 +10,7 @@ import {
   routeFilters,
   routeImage,
   logInAuth,
+  filterDrawer,
 } from './reducers';
 
 export default combineReducers({
@@ -22,4 +23,5 @@ export default combineReducers({
   routeFilters,
   routeImage,
   logInAuth,
+  filterDrawer,
 });
