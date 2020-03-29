@@ -233,8 +233,8 @@ export const saveUserToken = () => {
 export const removeUserToken = () => {
   return function thunk(dispatch) {
     return AsyncStorage.removeItem('userToken')
-      .then(() => {
-        dispatch(removeToken());
+      .then(data => {
+        dispatch(removeToken(data));
       })
       .catch(err => {
         dispatch(tokenError(err.message || 'ERROR'));

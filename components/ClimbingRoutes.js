@@ -5,7 +5,15 @@ import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
 import {removeUserToken} from '../redux/thunks/userThunks';
 import RouteTile from './RouteTile';
 
-import {Container, Header, Content, Text, Card, CardItem} from 'native-base';
+import {
+  Container,
+  Header,
+  Content,
+  Text,
+  Card,
+  CardItem,
+  Button,
+} from 'native-base';
 
 class ClimbingRoutes extends Component {
   constructor() {
@@ -43,6 +51,18 @@ class ClimbingRoutes extends Component {
     }
     return true;
   }
+
+  signOut = () => {
+    this.props
+      .removeUserToken()
+      .then(() => {
+        this.props.navigation.navigate('Login');
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   render() {
     const {
       props: {climbingRoutes, user, editModel},
@@ -51,6 +71,9 @@ class ClimbingRoutes extends Component {
     return (
       <Container>
         <Content>
+          <Button light onPress={this.signOut}>
+            <Text>I'm done, sign me out</Text>
+          </Button>
           {climbingRoutes.map(climbingRoute => {
             return filter(climbingRoute) ? (
               <RouteTile
@@ -69,15 +92,17 @@ class ClimbingRoutes extends Component {
   }
 }
 
-const mapState = ({climbingRoutes, user, routeFilters}) => ({
+const mapState = ({climbingRoutes, user, routeFilters, token}) => ({
   climbingRoutes,
   user,
   routeFilters,
+  token,
 });
 
 const mapDispatch = dispatch => {
   return {
     fetchClimbingRoutes: () => dispatch(fetchClimbingRoutes()),
+    removeUserToken: () => dispatch(removeUserToken()),
   };
 };
 

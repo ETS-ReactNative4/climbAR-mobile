@@ -124,9 +124,10 @@ export const saveToken = token => {
   };
 };
 
-export const removeToken = () => {
+export const removeToken = token => {
   return {
     type: REMOVE_TOKEN,
+    token,
   };
 };
 
