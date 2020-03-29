@@ -30,7 +30,7 @@ class Navigator extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          {this.props.token.token === null ? (
+          {this.props.token.token == null ? (
             <>
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Signup" component={Signup} />

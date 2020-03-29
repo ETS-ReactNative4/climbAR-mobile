@@ -214,7 +214,7 @@ export const token = (
     case SAVE_TOKEN:
       return {...state, token: action.token};
     case REMOVE_TOKEN:
-      return {...state, token: action.token};
+      return {...state, token: {}};
     case TOKEN_ERROR:
       return {...state, error: action.error};
     default:
