@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import {toggleFilterDrawer} from '../redux/actions.js';
 import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
 import {removeUserToken} from '../redux/thunks/userThunks';
 import RouteTile from './RouteTile';
+import LoadSpinner from './LoadSpinner';
 
 import {
   Container,
@@ -13,6 +15,8 @@ import {
   Card,
   CardItem,
   Button,
+  Icon,
+  View,
 } from 'native-base';
 
 class ClimbingRoutes extends Component {
@@ -65,44 +69,70 @@ class ClimbingRoutes extends Component {
 
   render() {
     const {
-      props: {climbingRoutes, user, editModel},
+      props: {
+        climbingRoutes,
+        user,
+        editModel,
+        toggleFilterDrawer,
+        filterDrawer,
+      },
       filter,
     } = this;
     return (
       <Container>
-        <Content>
-          <Button light onPress={this.signOut}>
-            <Text>I'm done, sign me out</Text>
-          </Button>
-          {climbingRoutes.map(climbingRoute => {
-            return filter(climbingRoute) ? (
-              <RouteTile
-                key={climbingRoute.id}
-                route={climbingRoute}
-                user={user}
-                editModel={editModel}
-              />
-            ) : (
-              ''
-            );
-          })}
-        </Content>
+        {climbingRoutes.length ? (
+          <Container>
+            <Icon
+              type="FontAwesome"
+              name="filter"
+              style={{margin: 5}}
+              onPress={toggleFilterDrawer}
+            />
+            <Button primary onPress={this.signOut}>
+              <Text>I'm done, sign me out</Text>
+            </Button>
+            <Content>
+              {climbingRoutes.map(climbingRoute => {
+                return filter(climbingRoute) ? (
+                  <RouteTile
+                    key={climbingRoute.id}
+                    route={climbingRoute}
+                    user={user}
+                    editModel={editModel}
+                  />
+                ) : (
+                  ''
+                );
+              })}
+            </Content>
+          </Container>
+        ) : (
+          <LoadSpinner />
+        )}
       </Container>
     );
   }
 }
 
-const mapState = ({climbingRoutes, user, routeFilters, token}) => ({
+const mapState = ({
   climbingRoutes,
   user,
   routeFilters,
   token,
+  filterDrawer,
+}) => ({
+  climbingRoutes,
+  user,
+  routeFilters,
+  token,
+  filterDrawer,
 });
 
 const mapDispatch = dispatch => {
   return {
     fetchClimbingRoutes: () => dispatch(fetchClimbingRoutes()),
     removeUserToken: () => dispatch(removeUserToken()),
+    toggleFilterDrawer: () => dispatch(toggleFilterDrawer()),
   };
 };
 

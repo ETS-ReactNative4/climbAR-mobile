@@ -16,7 +16,14 @@ import {
   SAVE_TOKEN,
   REMOVE_TOKEN,
   TOKEN_ERROR,
+  TOGGLE_FILTER_DRAWER,
 } from './constants';
+
+export const toggleFilterDrawer = () => {
+  return {
+    type: TOGGLE_FILTER_DRAWER,
+  };
+};
 
 export const setEditModel = (model, holdsData) => {
   return {
@@ -124,10 +131,9 @@ export const saveToken = token => {
   };
 };
 
-export const removeToken = token => {
+export const removeToken = () => {
   return {
     type: REMOVE_TOKEN,
-    token,
   };
 };
 

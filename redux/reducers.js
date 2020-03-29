@@ -15,10 +15,21 @@ import {
   SAVE_TOKEN,
   REMOVE_TOKEN,
   TOKEN_ERROR,
+  TOGGLE_FILTER_DRAWER,
 } from './constants';
 import {htmlDate} from '../utils';
 import moment from 'moment';
 import {fetchHolds} from './thunks/holdThunks';
+
+export const filterDrawer = (state = {show: false}, action) => {
+  switch (action.type) {
+    case TOGGLE_FILTER_DRAWER:
+      const newState = {show: !state.show};
+      return newState;
+    default:
+      return state;
+  }
+};
 
 export const routeFilters = (state = {}, action) => {
   switch (action.type) {

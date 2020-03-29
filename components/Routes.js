@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import Login from './Login';
 import Home from './Home';
 import Signup from './Signup';
-import ClimbingRoutes from './ClimbingRoutes';
+import FilterDrawer from './FilterDrawer';
 const Stack = createStackNavigator();
 
 import {getUserToken} from '../redux/thunks/userThunks';
@@ -38,7 +38,7 @@ class Navigator extends Component {
           ) : (
             <>
               <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="ClimbingRoutes" component={ClimbingRoutes} />
+              <Stack.Screen name="ClimbingRoutes" component={FilterDrawer} />
             </>
           )}
         </Stack.Navigator>
