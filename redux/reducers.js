@@ -14,6 +14,10 @@ import {
   LOGIN_FAILURE,
   SET_EDIT_MODEL,
   TOGGLE_FILTER_DRAWER,
+  GET_TOKEN,
+  SAVE_TOKEN,
+  REMOVE_TOKEN,
+  TOKEN_ERROR,
 } from './constants';
 import {htmlDate} from '../utils';
 import moment from 'moment';
@@ -224,5 +228,26 @@ export const authReducer = (
 };
 
 export const createUser = (state = {}, action) => {
-  return state; 
+  return state;
+};
+
+export const token = (
+  state = {
+    token: {},
+    error: null,
+  },
+  action,
+) => {
+  switch (action.type) {
+    case GET_TOKEN:
+      return {...state, token: action.token};
+    case SAVE_TOKEN:
+      return {...state, token: action.token};
+    case REMOVE_TOKEN:
+      return {...state, token: action.token};
+    case TOKEN_ERROR:
+      return {...state, error: action.error};
+    default:
+      return state;
+  }
 };

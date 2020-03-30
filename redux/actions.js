@@ -15,6 +15,10 @@ import {
   LOGIN_FAILURE,
   SET_EDIT_MODEL,
   TOGGLE_FILTER_DRAWER,
+  GET_TOKEN,
+  SAVE_TOKEN,
+  REMOVE_TOKEN,
+  TOKEN_ERROR,
 } from './constants';
 
 export const toggleFilterDrawer = () => {
@@ -124,5 +128,32 @@ export const logInSuccess = () => {
 export const loggedInFail = () => {
   return {
     type: LOGIN_FAILURE,
+  };
+};
+
+export const getToken = token => {
+  return {
+    type: GET_TOKEN,
+    token,
+  };
+};
+
+export const saveToken = token => {
+  return {
+    type: SAVE_TOKEN,
+    token,
+  };
+};
+
+export const removeToken = () => {
+  return {
+    type: REMOVE_TOKEN,
+  };
+};
+
+export const tokenError = error => {
+  return {
+    type: TOKEN_ERROR,
+    error,
   };
 };

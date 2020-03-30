@@ -1,9 +1,19 @@
 import axios from 'axios';
-import {setUser, statusMessage, logInSuccess, loggedInFail} from '../actions';
+import {
+  setUser,
+  statusMessage,
+  logInSuccess,
+  loggedInFail,
+  getToken,
+  saveToken,
+  removeToken,
+  tokenError,
+} from '../actions';
 import {FAIL, SUCCESS} from './utils';
 import chalk from 'chalk';
 import {getCookie} from '../../utils';
 import {fetchClimbingRoutes} from './climbingRoutesThunks';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const fetchUser = sessionId => {
   return dispatch => {
@@ -187,6 +197,42 @@ export const rate = (user, route, rating) => {
       })
       .catch(err => {
         console.log('Error rating a route ', err);
+      });
+  };
+};
+
+export const getUserToken = () => {
+  return function thunk(dispatch) {
+    return AsyncStorage.getItem('userToken')
+      .then(data => {
+        dispatch(getToken(data));
+      })
+      .catch(err => {
+        dispatch(tokenError(err.message || 'ERROR'));
+      });
+  };
+};
+
+export const saveUserToken = () => {
+  return function thunk(dispatch) {
+    return AsyncStorage.setItem('userToken', 'abc')
+      .then(() => {
+        dispatch(saveToken('token saved'));
+      })
+      .catch(err => {
+        dispatch(tokenError(err.message || 'ERROR'));
+      });
+  };
+};
+
+export const removeUserToken = () => {
+  return function thunk(dispatch) {
+    return AsyncStorage.removeItem('userToken')
+      .then(data => {
+        dispatch(removeToken(data));
+      })
+      .catch(err => {
+        dispatch(tokenError(err.message || 'ERROR'));
       });
   };
 };
