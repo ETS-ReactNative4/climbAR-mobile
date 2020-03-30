@@ -33,16 +33,11 @@ export default class Login extends Component {
       this.setState({
         loading: true,
       });
-      axios.post('http://climbar.herokuapp.com/api/users', req).then(
+      axios.post('http://climbar.herokuapp.com/api/users', req)
+      .then(
         res => {
-          this.setState({
-            loading: false,
-          });
-          console.warn(res.data);
-        
-            this.props.navigation.navigate('Home');
-            alert('Login Successful');
-  
+          this.props.navigation.navigate('Home');
+          alert('Login Successful');
         },
         err => {
           this.setState({
@@ -55,7 +50,6 @@ export default class Login extends Component {
       alert('Enter Credentials');
     }
   };
-
   signUp = () => {
     this.props.navigation.navigate('Signup');
   };

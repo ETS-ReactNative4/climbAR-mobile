@@ -78,10 +78,9 @@ export const createUser = ({email, password}) => {
       .post('https://climbar.herokuapp.com/api/users', req)
       .then(res => {
         dispatch(setUser(res.data));
-        dispatch(logInSuccess());
       })
-      .catch(() => {
-        alert('There was an error signing up!');
+      .catch(e => {
+        console.warn(e);
       });
   };
 };

@@ -61,14 +61,18 @@ const styles = StyleSheet.create({
 });
 
 class Signup extends Component {
-  state = {
-    signedUp: false
-  }
   loginScreen = () => {
     this.props.navigation.navigate('Login');
   };
   onSubmit = values => {
-    this.props.createUser(values);
+    this.props
+      .createUser(values)
+      .then(() => {
+        this.props.navigation.navigate('Home');
+      })
+      .catch(() => {
+        alert('There was an error with your signing up');
+      });
   };
   renderTextInput = field => {
     const {
