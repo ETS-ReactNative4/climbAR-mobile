@@ -16,7 +16,6 @@ export default class Login extends Component {
   state = {
     email: '',
     password: '',
-    loading: false,
   };
   onChangeHandler = (state, value) => {
     this.setState({
@@ -40,10 +39,10 @@ export default class Login extends Component {
             loading: false,
           });
           console.warn(res.data);
-          AsyncStorage.setItem('token', res.data.id).then(res => {
+        
             this.props.navigation.navigate('Home');
             alert('Login Successful');
-          });
+  
         },
         err => {
           this.setState({

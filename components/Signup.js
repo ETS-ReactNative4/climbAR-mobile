@@ -13,7 +13,7 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {Field, reduxForm} from 'redux-form';
 import InputText from './InputText';
-import {createNewUser} from '../redux/thunks/userThunks';
+import {createUser} from '../redux/thunks/userThunks';
 
 const styles = StyleSheet.create({
   container: {
@@ -61,16 +61,15 @@ const styles = StyleSheet.create({
 });
 
 class Signup extends Component {
+  state = {
+    signedUp: false
+  }
   loginScreen = () => {
     this.props.navigation.navigate('Login');
   };
-  createNewUser = values => {
-    this.props.dispatch(createNewUser(values));
-  };
   onSubmit = values => {
-    this.createNewUser(values);
+    this.props.createUser(values);
   };
-  //destructoring the inputbox
   renderTextInput = field => {
     const {
       meta: {touched, error},
@@ -167,9 +166,11 @@ const validate = values => {
   return errors;
 };
 
-const mapDispatchToProps = dispatch => ({
-  dispatch,
-});
+const mapDispatchToProps = dispatch => {
+  return {
+    createUser: values => dispatch(createUser(values)),
+  };
+};
 //composing the functions with connect and redux form
 export default compose(
   connect(null, mapDispatchToProps),

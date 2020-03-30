@@ -10,9 +10,7 @@ import {
   climbingRoute,
   routeFilters,
   routeImage,
-  logInAuth,
-  authReducer,
-  createUser
+  filterDrawer,
 } from './reducers';
 
 export default combineReducers({
@@ -24,8 +22,6 @@ export default combineReducers({
   climbingRoute,
   routeFilters,
   routeImage,
-  logInAuth,
-  authReducer,
+  filterDrawer,
   form: formReducer,
-  createUser,
 });

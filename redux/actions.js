@@ -14,7 +14,14 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   SET_EDIT_MODEL,
+  TOGGLE_FILTER_DRAWER,
 } from './constants';
+
+export const toggleFilterDrawer = () => {
+  return {
+    type: TOGGLE_FILTER_DRAWER,
+  };
+};
 
 export const setEditModel = (model, holdsData) => {
   return {
@@ -119,10 +126,3 @@ export const loggedInFail = () => {
     type: LOGIN_FAILURE,
   };
 };
-
-// export const createNewUser = (payload) => {
-//   return {
-//     type: "User",
-//     payload: "adkfl;adfaadf"
-//   }
-// }
