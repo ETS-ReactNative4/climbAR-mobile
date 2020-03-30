@@ -6,8 +6,8 @@ import Home from './Home';
 import Signup from './Signup';
 import climbingRoutes from './ClimbingRoutes';
 import FilterDrawer from './FilterDrawer';
-const Stack = createStackNavigator();
 
+const Stack = createStackNavigator();
 //function to create a new stack navigator, pass an object into function to configure what different screens we want to register for this stack navigator
 const Navigator = () => {
   return (

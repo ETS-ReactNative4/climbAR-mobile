@@ -66,35 +66,25 @@ export const logInUser = ({email, password}) => {
   };
 };
 
-//Thunk for creating a user
-export const createUser = user => {
+// Thunk for creating a user
+export const createUser = ({email, password}) => {
+  const req = {
+    email,
+    password,
+    userType: 'Climber',
+  };
   return dispatch => {
     return axios
-      .post('https://climbar.herokuapp.com/api/users', user)
+      .post('https://climbar.herokuapp.com/api/users', req)
       .then(res => {
         dispatch(setUser(res.data));
-        dispatch(logInSuccess());
       })
-      .then(() => {
-        dispatch(
-          statusMessage({
-            status: SUCCESS,
-            text: 'Welcome to climbAR',
-          }),
-        );
-      })
-      .catch(() => {
-        dispatch(
-          statusMessage({
-            status: FAIL,
-            text: 'There was an error signing up!',
-          }),
-        );
+      .catch(e => {
+        console.warn(e);
       });
   };
 };
 
-// log out a user
 export const logoutUser = userId => {
   return function thunk(dispatch) {
     return axios

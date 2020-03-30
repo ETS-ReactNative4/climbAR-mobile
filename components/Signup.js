@@ -9,52 +9,11 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
-
-export default class Signup extends Component {
-  loginScreen = () => {
-    this.props.navigation.navigate('Login');
-  };
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Image
-            style={{width: 350, height: 85}}
-            source={require('./../public/logo.png')}
-          />
-          <Text> Welcome to ClimbAR </Text>
-        </View>
-        <Text> Create your account for ClimbAR </Text>
-        <TextInput
-          style={styles.inputBox}
-          placeholder="Email"
-          placeholderTextColor="#e4572e"
-        />
-        <TextInput
-          style={styles.inputBox}
-          placeholder="Password"
-          secureTextEntry={true}
-          placeholderTextColor="#e4572e"
-        />
-        <TextInput
-          style={styles.inputBox}
-          placeholder="Confirm Password"
-          secureTextEntry={true}
-          placeholderTextColor="#e4572e"
-        />
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}> Sign Up </Text>
-        </TouchableOpacity>
-        <View style={styles.LoginTextContainer}>
-          <Text> Already have an account?</Text>
-          <TouchableOpacity onPress={this.loginScreen} >
-            <Text style={styles.buttonText}> Login </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
-}
+import {connect} from 'react-redux';
+import {compose} from 'redux';
+import {Field, reduxForm} from 'redux-form';
+import InputText from './InputText';
+import {createUser} from '../redux/thunks/userThunks';
 
 const styles = StyleSheet.create({
   container: {
@@ -88,14 +47,139 @@ const styles = StyleSheet.create({
     color: '#e4572e',
     textAlign: 'center',
   },
-  LoginTextContainer: {
+  loginTextContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
   },
-  LoginText: {
+  errorText: {
     color: '#e4572e',
-    fontSize: 16,
+    fontSize: 12,
+    paddingHorizontal: 16,
   },
 });
+
+class Signup extends Component {
+  loginScreen = () => {
+    this.props.navigation.navigate('Login');
+  };
+  onSubmit = values => {
+    this.props
+      .createUser(values)
+      .then(() => {
+        this.props.navigation.navigate('Home');
+      })
+      .catch(() => {
+        alert('There was an error with your signing up');
+      });
+  };
+  renderTextInput = field => {
+    const {
+      meta: {touched, error},
+      label,
+      secureTextEntry,
+      maxLength,
+      keyboardType,
+      placeholder,
+      input: {onChange, ...restInput},
+    } = field;
+    return (
+      <View>
+        <InputText
+          onChangeText={onChange}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          keyboardType={keyboardType}
+          label={label}
+          secureTextEntry={secureTextEntry}
+          {...restInput}
+        />
+        {touched && error && <Text style={styles.errorText}>{error}</Text>}
+      </View>
+    );
+  };
+
+  render() {
+    const {handleSubmit} = this.props;
+    return (
+      <View style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Image
+            style={{width: 350, height: 85}}
+            source={require('./../public/logo.png')}
+          />
+          <Text> Welcome to ClimbAR </Text>
+        </View>
+        <Text> Create your account for ClimbAR </Text>
+        <Field
+          style={styles.inputBox}
+          name="email"
+          label="email"
+          placeholder="Email"
+          component={this.renderTextInput}
+        />
+        <Field
+          style={styles.inputBox}
+          name="password"
+          label="password"
+          placeholder="Password"
+          component={this.renderTextInput}
+          secureTextEntry={true}
+        />
+        <Field
+          style={styles.inputBox}
+          name="confirmPassword"
+          label="confirmPassword"
+          placeholder="Confirm Password"
+          component={this.renderTextInput}
+          secureTextEntry={true}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSubmit(this.onSubmit)}>
+          <Text style={styles.buttonText}> Sign Up </Text>
+        </TouchableOpacity>
+        <View style={styles.loginTextContainer}>
+          <Text> Already have an account?</Text>
+          <TouchableOpacity onPress={this.loginScreen}>
+            <Text style={styles.buttonText}> Login </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
+
+// creating validate function
+const validate = values => {
+  const errors = {};
+  const {email, password, confirmPassword} = values;
+  if (!email) {
+    errors.email = 'Email is required';
+  }
+  if (!password) {
+    errors.password = 'Password is required';
+  }
+  if (!confirmPassword) {
+    errors.confirmPassword = 'Please Confirm your password';
+  }
+  if (password !== confirmPassword) {
+    errors.confirmPassword = 'Passwords do not match';
+  }
+  return errors;
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    createUser: values => dispatch(createUser(values)),
+  };
+};
+//composing the functions with connect and redux form
+export default compose(
+  connect(null, mapDispatchToProps),
+  reduxForm({
+    form: 'register',
+    validate,
+  }),
+)(Signup);
