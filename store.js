@@ -17,7 +17,7 @@ const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   //the redux form in sign up can refresh
-  whitelist: ['authReducer'],
+  whitelist: [],
 };
 
 //will store the data locally in the reducers
