@@ -233,7 +233,7 @@ export const createUser = (state = {}, action) => {
 
 export const token = (
   state = {
-    token: {},
+    token: null,
     error: null,
   },
   action,

@@ -15,7 +15,7 @@ import {
 
 import {Text} from 'native-base';
 import axios from 'axios';
-import climbingRoutes from './ClimbingRoutes';
+import ClimbingRoutes from './ClimbingRoutes';
 
 export default class Home extends Component {
   allClimbingRoutes = () => {

@@ -11,6 +11,7 @@ import {getUserToken} from '../redux/thunks/userThunks';
 
 const Stack = createStackNavigator();
 //function to create a new stack navigator, pass an object into function to configure what different screens we want to register for this stack navigator
+//https://heartbeat.fritz.ai/how-to-manage-authentication-flows-in-react-native-with-react-navigation-v5-and-firebase-860f57ae20d3
 class Navigator extends Component {
   static navigationOptions = {
     header: null,
@@ -26,21 +27,22 @@ class Navigator extends Component {
   };
   render() {
     const {token} = this.props;
+    console.log('token is: ', token.token);
     return (
       <NavigationContainer>
-        {token && (
-          <Stack.Navigator>
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="ClimbingRoutes" component={FilterDrawer} />
-          </Stack.Navigator>
-        )}
-        {!token && (
-          <Stack.Navigator>
-            <Stack.Screen name="Login" component={Login} />
-
-            <Stack.Screen name="Signup" component={Signup} />
-          </Stack.Navigator>
-        )}
+        <Stack.Navigator>
+          {token.token == null ? (
+            <>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Signup" component={Signup} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="ClimbingRoutes" component={FilterDrawer} />
+            </>
+          )}
+        </Stack.Navigator>
       </NavigationContainer>
     );
   }

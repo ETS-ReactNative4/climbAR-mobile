@@ -9,14 +9,19 @@ import {
   TouchableOpacity,
   onChangeText,
 } from 'react-native';
+import {connect} from 'react-redux';
 import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
+import {saveUserToken} from '../redux/thunks/userThunks';
 
-export default class Login extends Component {
-  state = {
-    email: '',
-    password: '',
-  };
+class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
   onChangeHandler = (state, value) => {
     this.setState({
       [state]: value,
@@ -33,11 +38,19 @@ export default class Login extends Component {
       this.setState({
         loading: true,
       });
-      axios.post('http://climbar.herokuapp.com/api/users', req)
-      .then(
+      axios.post('http://climbar.herokuapp.com/api/users', req).then(
         res => {
-          this.props.navigation.navigate('Home');
-          alert('Login Successful');
+          console.log(res.data);
+          this.props
+            .saveUserToken()
+            .then(() => {
+              console.log('redirecting to Home');
+              this.props.navigation.navigate('Home');
+              alert('Login Successful');
+            })
+            .catch(error => {
+              this.setState({error});
+            });
         },
         err => {
           this.setState({
@@ -134,3 +147,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+const mapState = state => ({
+  token: state.token,
+});
+
+const mapDispatch = dispatch => ({
+  saveUserToken: () => dispatch(saveUserToken()),
+});
+
+export default connect(mapState, mapDispatch)(Login);

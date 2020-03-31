@@ -216,8 +216,8 @@ export const getUserToken = () => {
 export const saveUserToken = () => {
   return function thunk(dispatch) {
     return AsyncStorage.setItem('userToken', 'abc')
-      .then(() => {
-        dispatch(saveToken('token saved'));
+      .then(data => {
+        dispatch(saveToken(data));
       })
       .catch(err => {
         dispatch(tokenError(err.message || 'ERROR'));

@@ -13,7 +13,7 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {Field, reduxForm} from 'redux-form';
 import InputText from './InputText';
-import {createUser} from '../redux/thunks/userThunks';
+import {createUser, saveUserToken} from '../redux/thunks/userThunks';
 
 const styles = StyleSheet.create({
   container: {
@@ -68,7 +68,15 @@ class Signup extends Component {
     this.props
       .createUser(values)
       .then(() => {
-        this.props.navigation.navigate('Home');
+        this.props
+          .saveUserToken()
+          .then(() => {
+            console.log('redirecting to Home');
+            this.props.navigation.navigate('Home');
+          })
+          .catch(error => {
+            this.setState({error});
+          });
       })
       .catch(() => {
         alert('There was an error with your signing up');
@@ -173,6 +181,7 @@ const validate = values => {
 const mapDispatchToProps = dispatch => {
   return {
     createUser: values => dispatch(createUser(values)),
+    saveUserToken: () => dispatch(saveUserToken()),
   };
 };
 //composing the functions with connect and redux form

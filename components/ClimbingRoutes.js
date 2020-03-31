@@ -5,6 +5,7 @@ import {toggleFilterDrawer} from '../redux/actions.js';
 import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
 import RouteTile from './RouteTile';
 import LoadSpinner from './LoadSpinner';
+import {removeUserToken} from '../redux/thunks/userThunks';
 
 import {
   Container,
@@ -15,9 +16,10 @@ import {
   CardItem,
   Icon,
   View,
+  Button,
 } from 'native-base';
 
-class climbingRoutes extends Component {
+class ClimbingRoutes extends Component {
   constructor() {
     super();
     this.filter = this.filter.bind(this);
@@ -53,6 +55,16 @@ class climbingRoutes extends Component {
     }
     return true;
   }
+
+  logOutAsync = () => {
+    this.props
+      .removeUserToken()
+      .then(() => {
+        this.props.navigation.navigate('Login');
+      })
+      .catch(error => this.setState({error}));
+  };
+
   render() {
     const {
       props: {
@@ -74,6 +86,9 @@ class climbingRoutes extends Component {
               style={{margin: 5}}
               onPress={toggleFilterDrawer}
             />
+            <Button primary onPress={this.logOutAsync}>
+              <Text>I'm done, log me out.</Text>
+            </Button>
             <Content>
               {climbingRoutes.map(climbingRoute => {
                 return filter(climbingRoute) ? (
@@ -97,18 +112,26 @@ class climbingRoutes extends Component {
   }
 }
 
-const mapState = ({climbingRoutes, user, routeFilters, filterDrawer}) => ({
+const mapState = ({
   climbingRoutes,
   user,
   routeFilters,
   filterDrawer,
+  token,
+}) => ({
+  climbingRoutes,
+  user,
+  routeFilters,
+  filterDrawer,
+  token,
 });
 
 const mapDispatch = dispatch => {
   return {
     fetchClimbingRoutes: () => dispatch(fetchClimbingRoutes()),
     toggleFilterDrawer: () => dispatch(toggleFilterDrawer()),
+    removeUserToken: () => dispatch(removeUserToken()),
   };
 };
 
-export default connect(mapState, mapDispatch)(climbingRoutes);
+export default connect(mapState, mapDispatch)(ClimbingRoutes);
