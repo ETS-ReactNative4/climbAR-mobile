@@ -72,7 +72,6 @@ class Signup extends Component {
           .saveUserToken()
           .then(() => {
             console.log('redirecting to Home');
-            this.props.navigation.navigate('Home');
           })
           .catch(error => {
             this.setState({error});
@@ -178,6 +177,8 @@ const validate = values => {
   return errors;
 };
 
+const mapState = ({token}) => ({token});
+
 const mapDispatchToProps = dispatch => {
   return {
     createUser: values => dispatch(createUser(values)),
@@ -186,7 +187,7 @@ const mapDispatchToProps = dispatch => {
 };
 //composing the functions with connect and redux form
 export default compose(
-  connect(null, mapDispatchToProps),
+  connect(mapState, mapDispatchToProps),
   reduxForm({
     form: 'register',
     validate,

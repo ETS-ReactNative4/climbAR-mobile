@@ -8,7 +8,7 @@
  */
 
 import React, {Component} from 'react';
-import {Provider} from 'react-redux';
+import {Provider, connect} from 'react-redux';
 import store from '../store';
 
 import {StyleSheet, ScrollView, View, StatusBar} from 'react-native';

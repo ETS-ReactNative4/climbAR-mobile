@@ -45,7 +45,6 @@ class Login extends Component {
             .saveUserToken()
             .then(() => {
               console.log('redirecting to Home');
-              this.props.navigation.navigate('Home');
               alert('Login Successful');
             })
             .catch(error => {
