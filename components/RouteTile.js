@@ -30,6 +30,8 @@ class RouteTile extends Component {
     };
     const darkColor = route =>
       ['black', 'green', 'purple'].indexOf(route.holdColor) !== -1;
+
+    console.log(user);
     //to do: add single route view link to grade
     //to do: add rating button to the card or to the single route page
     return (

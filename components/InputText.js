@@ -51,6 +51,7 @@ class InputText extends Component {
     );
   };
   render() {
+    console.log(this.props.value)
     const {
       mapElement,
       onSubmitEditing,
