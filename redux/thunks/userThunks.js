@@ -10,13 +10,11 @@ export const fetchUser = sessionId => {
     return axios
       .get(`https://climbar.herokuapp.com/api/users/session/${sessionId}`)
       .then(res => {
-        console.log(chalk.cyan('returned value from get api', res.data));
         const {user, completedRouteInfo} = res.data;
         user['completedRouteInfo'] = completedRouteInfo;
         dispatch(setUser(user));
       })
       .catch(e => {
-        console.log(chalk.cyan('error setting the user', e));
         switch (e.response.status) {
           case 404:
             dispatch(setUser({}));
@@ -43,25 +41,10 @@ export const logInUser = ({email, password}) => {
         const {user, completedRouteInfo} = res.data;
         user['completedRouteInfo'] = completedRouteInfo;
         dispatch(setUser(user));
-        dispatch(logInSuccess());
+        return user;
       })
-      .then(() => {
-        dispatch(
-          statusMessage({
-            status: SUCCESS,
-            text: 'Logged in successfully',
-          }),
-        );
-      })
-      .catch(err => {
-        console.log(err);
-        dispatch(loggedInFail());
-        dispatch(
-          statusMessage({
-            status: FAIL,
-            text: 'Invalid email address or password. Please try again.',
-          }),
-        );
+      .catch(error => {
+        dispatch(setUser({credentialError: error}));
       });
   };
 };
@@ -115,7 +98,7 @@ export const likeRoute = (user, route) => {
         route,
       })
       .then(res => {
-        dispatch(fetchUser(getCookie()));
+        dispatch(fetchUser(user.sessionId));
         dispatch(fetchClimbingRoutes());
       })
       .catch(err => {
@@ -131,7 +114,7 @@ export const unLikeRoute = (user, route) => {
         data: {user, route},
       })
       .then(() => {
-        dispatch(fetchUser(getCookie()));
+        dispatch(fetchUser(user.sessionId));
         dispatch(fetchClimbingRoutes());
       })
       .catch(err => {
@@ -148,7 +131,7 @@ export const markComplete = (user, route) => {
         route,
       })
       .then(res => {
-        dispatch(fetchUser(getCookie()));
+        dispatch(fetchUser(user.sessionId));
         dispatch(fetchClimbingRoutes());
       })
       .catch(err => {
@@ -164,7 +147,7 @@ export const unComplete = (user, route) => {
         data: {user, route},
       })
       .then(res => {
-        dispatch(fetchUser(getCookie()));
+        dispatch(fetchUser(user.sessionId));
         dispatch(fetchClimbingRoutes());
       })
       .catch(err => {

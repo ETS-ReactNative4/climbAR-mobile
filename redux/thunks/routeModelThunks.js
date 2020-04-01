@@ -13,8 +13,6 @@ import {fetchSingleClimbingRoute} from './climbingRoutesThunks';
 //put the updated route on the server
 export function editRouteModel(model) {
   return dispatch => {
-    console.log('sending model to server for editing');
-    console.log(model);
     return axios
       .put('https://climbar.herokuapp.com/api/routemodels/edit', model)
       .then(() => {
@@ -68,7 +66,6 @@ export function createRouteModel(model) {
     return axios
       .post('https://climbar.herokuapp.com/api/routemodels/new', model)
       .then(res => {
-        console.log('this the response', res);
         dispatch(fetchSingleClimbingRoute(res.data.id));
       })
       .then(() => {

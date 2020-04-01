@@ -11,8 +11,10 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import {connect} from 'react-redux';
+import {logInUser} from '../redux/thunks/userThunks';
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     email: '',
     password: '',
@@ -22,9 +24,18 @@ export default class Login extends Component {
       [state]: value,
     });
   };
-
+  componentDidUpdate() {
+    if (this.props.user.credentialError) {
+      alert('Credential Error ', this.props.user.credentialError);
+      return;
+    }
+    if (this.props.user.userType) this.props.navigation.navigate('Home');
+  }
   logIn = () => {
-    const {email, password} = this.state;
+    const {
+      state: {email, password},
+      props: {logInUser},
+    } = this;
     if (email && password) {
       const req = {
         email: email,
@@ -33,19 +44,7 @@ export default class Login extends Component {
       this.setState({
         loading: true,
       });
-      axios.post('http://climbar.herokuapp.com/api/users', req)
-      .then(
-        res => {
-          this.props.navigation.navigate('Home');
-          alert('Login Successful');
-        },
-        err => {
-          this.setState({
-            loading: false,
-          });
-          alert('Wrong Credentials');
-        },
-      );
+      logInUser(email, password);
     } else {
       alert('Enter Credentials');
     }
@@ -90,6 +89,16 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapState = ({user}) => ({user});
+
+const mapDispatch = dispatch => {
+  return {
+    logInUser: (email, password) => dispatch(logInUser({email, password})),
+  };
+};
+
+export default connect(mapState, mapDispatch)(Login);
 
 const styles = StyleSheet.create({
   container: {
