@@ -5,7 +5,6 @@ import {toggleFilterDrawer} from '../redux/actions.js';
 import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
 import RouteTile from './RouteTile';
 import LoadSpinner from './LoadSpinner';
-import {removeUserToken} from '../redux/thunks/userThunks';
 
 import {
   Container,
@@ -16,20 +15,51 @@ import {
   CardItem,
   Icon,
   View,
-  Button,
 } from 'native-base';
 
 class ClimbingRoutes extends Component {
   constructor() {
     super();
-    this.filter = this.filter.bind(this);
+    this.isInFilter = this.isInFilter.bind(this);
+    this.filteredRoutes = this.filteredRoutes.bind(this);
+    this.userCompletedRoute = this.userCompletedRoute.bind(this);
+    this.userLikedRoute = this.userLikedRoute.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchClimbingRoutes();
   }
-  filter(route) {
-    const {routeFilters, user} = this.props;
+  userCompletedRoute(routeId) {
+    const {user} = this.props;
+    if (!user.completedRoutes) return false;
+    if (!user.completedRoutes.filter(_r => _r.climbingRouteId === routeId)[0])
+      return false;
+    return true;
+  }
+  userLikedRoute(routeId) {
+    const {user} = this.props;
+    if (!user.likedroutes) return false;
+    if (!user.likedRoutes.filter(_r => _r.climbingRouteId === routeId)[0])
+      return false;
+    return true;
+  }
+  isInFilter(route) {
+    const {
+      props: {routeFilters, user},
+      userCompletedRoute,
+      userLikedRoute,
+    } = this;
+    const holdColorDictionary = {
+      '#a61901': 'Red',
+      '#ce7801': 'Orange',
+      '#fffe06': 'Yellow',
+      '#48ac10': 'Green',
+      '#0433ff': 'Blue',
+      '#531b93': 'Purple',
+      '#565656': 'Black',
+      '#ededed': 'White',
+    };
+
     for (let filter in routeFilters) {
       if (
         filter === 'grade' &&
@@ -41,14 +71,21 @@ class ClimbingRoutes extends Component {
       if (
         filter === 'completed' &&
         routeFilters.completed &&
-        !user.completedRoutes.filter(_r => _r.climbingRouteId === route.id)[0]
+        userCompletedRoute(route.id) !== true
       ) {
         return false;
       }
       if (
         filter === 'liked' &&
         routeFilters.liked &&
-        !user.likedRoutes.filter(_r => _r.climbingRouteId === route.id)[0]
+        userLikedRoute(route.id) !== true
+      ) {
+        return false;
+      }
+      if (
+        filter === 'holdColor' &&
+        routeFilters.holdColor &&
+        holdColorDictionary[route.holdColor] !== routeFilters.holdColor
       ) {
         return false;
       }
@@ -56,15 +93,29 @@ class ClimbingRoutes extends Component {
     return true;
   }
 
-  logOutAsync = () => {
-    this.props
-      .removeUserToken()
-      .then(() => {
-        this.props.navigation.navigate('Login');
-      })
-      .catch(error => this.setState({error}));
-  };
-
+  filteredRoutes() {
+    const {
+      props: {climbingRoutes, user, editModel},
+      isInFilter,
+    } = this;
+    let filteredRoutes = [];
+    for (let i = 0; i < climbingRoutes.length; i++) {
+      if (isInFilter(climbingRoutes[i]))
+        filteredRoutes.push(
+          <RouteTile
+            key={climbingRoutes[i].id}
+            route={climbingRoutes[i]}
+            user={user}
+            editModel={editModel}
+          />,
+        );
+    }
+    return filteredRoutes.length > 0 ? (
+      filteredRoutes
+    ) : (
+      <Text>No routes...</Text>
+    );
+  }
   render() {
     const {
       props: {
@@ -74,7 +125,7 @@ class ClimbingRoutes extends Component {
         toggleFilterDrawer,
         filterDrawer,
       },
-      filter,
+      filteredRoutes,
     } = this;
     return (
       <Container>
@@ -86,23 +137,7 @@ class ClimbingRoutes extends Component {
               style={{margin: 5}}
               onPress={toggleFilterDrawer}
             />
-            <Button primary onPress={this.logOutAsync}>
-              <Text>I'm done, log me out.</Text>
-            </Button>
-            <Content>
-              {climbingRoutes.map(climbingRoute => {
-                return filter(climbingRoute) ? (
-                  <RouteTile
-                    key={climbingRoute.id}
-                    route={climbingRoute}
-                    user={user}
-                    editModel={editModel}
-                  />
-                ) : (
-                  ''
-                );
-              })}
-            </Content>
+            <Content>{filteredRoutes()}</Content>
           </Container>
         ) : (
           <LoadSpinner />
@@ -112,25 +147,17 @@ class ClimbingRoutes extends Component {
   }
 }
 
-const mapState = ({
+const mapState = ({climbingRoutes, user, routeFilters, filterDrawer}) => ({
   climbingRoutes,
   user,
   routeFilters,
   filterDrawer,
-  token,
-}) => ({
-  climbingRoutes,
-  user,
-  routeFilters,
-  filterDrawer,
-  token,
 });
 
 const mapDispatch = dispatch => {
   return {
     fetchClimbingRoutes: () => dispatch(fetchClimbingRoutes()),
     toggleFilterDrawer: () => dispatch(toggleFilterDrawer()),
-    removeUserToken: () => dispatch(removeUserToken()),
   };
 };
 
