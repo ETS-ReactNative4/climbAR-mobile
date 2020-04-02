@@ -30,6 +30,7 @@ import persist from './../store';
 
 //persist is returning a function from the store, will have to invoke
 const persistStore = persist();
+
 class App extends Component {
   render() {
     return (

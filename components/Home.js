@@ -27,7 +27,7 @@ class Home extends Component {
     this.props
       .removeUserToken()
       .then(() => {
-        this.props.navigation.navigate('Login');
+        console.log('token after remove is: ', this.props.token.token);
       })
       .catch(error => this.setState({error}));
   };
@@ -41,7 +41,7 @@ class Home extends Component {
           </TouchableOpacity>
         </View>
         <View style={styles.logoContainer}>
-          <Button primary onPress={this.logOutAsync()}>
+          <Button primary onPress={this.logOutAsync}>
             <Text>I'm done, log me out.</Text>
           </Button>
           <Text> Connect Collaborate & Create Amazing Climbing Routes </Text>

@@ -15,6 +15,8 @@ import {getCookie} from '../../utils';
 import {fetchClimbingRoutes} from './climbingRoutesThunks';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import {SAVE_TOKEN} from '../constants';
+
 export const fetchUser = sessionId => {
   return dispatch => {
     return axios
@@ -53,25 +55,9 @@ export const logInUser = ({email, password}) => {
         const {user, completedRouteInfo} = res.data;
         user['completedRouteInfo'] = completedRouteInfo;
         dispatch(setUser(user));
-        dispatch(logInSuccess());
-      })
-      .then(() => {
-        dispatch(
-          statusMessage({
-            status: SUCCESS,
-            text: 'Logged in successfully',
-          }),
-        );
       })
       .catch(err => {
         console.log(err);
-        dispatch(loggedInFail());
-        dispatch(
-          statusMessage({
-            status: FAIL,
-            text: 'Invalid email address or password. Please try again.',
-          }),
-        );
       });
   };
 };
@@ -206,6 +192,7 @@ export const getUserToken = () => {
     return AsyncStorage.getItem('userToken')
       .then(data => {
         dispatch(getToken(data));
+        dispatch(logInUser());
       })
       .catch(err => {
         dispatch(tokenError(err.message || 'ERROR'));
@@ -217,7 +204,7 @@ export const saveUserToken = () => {
   return function thunk(dispatch) {
     return AsyncStorage.setItem('userToken', 'abc')
       .then(data => {
-        dispatch(saveToken(data));
+        dispatch(saveToken('abc'));
       })
       .catch(err => {
         dispatch(tokenError(err.message || 'ERROR'));

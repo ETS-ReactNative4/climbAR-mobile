@@ -22,46 +22,17 @@ class Login extends Component {
     };
   }
 
-  onChangeHandler = (state, value) => {
-    this.setState({
-      [state]: value,
-    });
+  logIn = () => {
+    this.props
+      .saveUserToken()
+      .then(() => {
+        console.log('token is saved');
+      })
+      .catch(error => {
+        this.setState({error});
+      });
   };
 
-  logIn = () => {
-    const {email, password} = this.state;
-    if (email && password) {
-      const req = {
-        email: email,
-        password: password,
-      };
-      this.setState({
-        loading: true,
-      });
-      axios.post('http://climbar.herokuapp.com/api/users', req).then(
-        res => {
-          console.log(res.data);
-          this.props
-            .saveUserToken()
-            .then(() => {
-              console.log('redirecting to Home');
-              alert('Login Successful');
-            })
-            .catch(error => {
-              this.setState({error});
-            });
-        },
-        err => {
-          this.setState({
-            loading: false,
-          });
-          alert('Wrong Credentials');
-        },
-      );
-    } else {
-      alert('Enter Credentials');
-    }
-  };
   signUp = () => {
     this.props.navigation.navigate('Signup');
   };
@@ -80,14 +51,12 @@ class Login extends Component {
           style={styles.inputBox}
           placeholder="Email"
           placeholderTextColor="#e4572e"
-          onChangeText={value => this.onChangeHandler('email', value)}
         />
         <TextInput
           style={styles.inputBox}
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#e4572e"
-          onChangeText={value => this.onChangeHandler('password', value)}
         />
         <TouchableOpacity style={styles.button} onPress={this.logIn}>
           <Text style={styles.buttonText}> Login </Text>
