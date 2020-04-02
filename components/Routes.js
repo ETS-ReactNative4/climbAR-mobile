@@ -52,7 +52,7 @@ class Navigator extends Component {
   }
 }
 
-const mapState = ({token}) => ({token});
+const mapState = ({token, user}) => ({token, user});
 const mapDispatch = dispatch => {
   return {
     getUserToken: () => dispatch(getUserToken()),

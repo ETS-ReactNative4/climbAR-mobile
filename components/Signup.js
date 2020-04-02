@@ -61,6 +61,18 @@ const styles = StyleSheet.create({
 });
 
 class Signup extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+  handleChange = ({target: {name, value}}) => {
+    this.setState({
+      [name]: value,
+    });
+  };
   loginScreen = () => {
     this.props.navigation.navigate('Login');
   };
@@ -94,6 +106,7 @@ class Signup extends Component {
     return (
       <View>
         <InputText
+          handleChange={this.handleChange}
           onChangeText={onChange}
           maxLength={maxLength}
           placeholder={placeholder}

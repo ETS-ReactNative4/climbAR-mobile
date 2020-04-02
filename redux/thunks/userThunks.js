@@ -47,13 +47,15 @@ export const fetchUser = sessionId => {
   };
 };
 
-export const logInUser = ({email, password}) => {
+export const logInUser = token => {
   return function thunk(dispatch) {
     return axios
-      .post('https://climbar.herokuapp.com/api/users/login', {email, password})
+      .get(`https://climbar.herokuapp.com/api/users/token/${token}`)
       .then(res => {
-        const {user, completedRouteInfo} = res.data;
-        user['completedRouteInfo'] = completedRouteInfo;
+        // const {user, completedRouteInfo} = res.data;
+        // user['completedRouteInfo'] = completedRouteInfo;
+        console.log(res.data);
+        const {user} = res.data;
         dispatch(setUser(user));
       })
       .catch(err => {
@@ -191,8 +193,9 @@ export const getUserToken = () => {
   return function thunk(dispatch) {
     return AsyncStorage.getItem('userToken')
       .then(data => {
+        console.log('returning from getItem: ', data);
         dispatch(getToken(data));
-        dispatch(logInUser());
+        dispatch(logInUser(data));
       })
       .catch(err => {
         dispatch(tokenError(err.message || 'ERROR'));
@@ -200,11 +203,17 @@ export const getUserToken = () => {
   };
 };
 
-export const saveUserToken = () => {
+export const saveUserToken = (email, password) => {
   return function thunk(dispatch) {
     return AsyncStorage.setItem('userToken', 'abc')
       .then(data => {
+        console.log(email, ' ,', password);
+        const req = {email, password, token: 'abc'};
         dispatch(saveToken('abc'));
+        axios
+          .post('https://climbar.herokuapp.com/api/users/token', req)
+          .then(res => dispatch(logInUser('abc')))
+          .catch(err => console.log(err));
       })
       .catch(err => {
         dispatch(tokenError(err.message || 'ERROR'));

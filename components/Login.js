@@ -22,9 +22,17 @@ class Login extends Component {
     };
   }
 
+  handleChange = (name, value) => {
+    this.setState({
+      [name]: value,
+    });
+  };
+
   logIn = () => {
+    const {email, password} = this.state;
+    console.log('email: ', email);
     this.props
-      .saveUserToken()
+      .saveUserToken(email, password)
       .then(() => {
         console.log('token is saved');
       })
@@ -51,12 +59,14 @@ class Login extends Component {
           style={styles.inputBox}
           placeholder="Email"
           placeholderTextColor="#e4572e"
+          onChangeText={value => this.handleChange('email', value)}
         />
         <TextInput
           style={styles.inputBox}
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#e4572e"
+          onChangeText={value => this.handleChange('password', value)}
         />
         <TouchableOpacity style={styles.button} onPress={this.logIn}>
           <Text style={styles.buttonText}> Login </Text>
@@ -121,7 +131,7 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  saveUserToken: () => dispatch(saveUserToken()),
+  saveUserToken: (email, password) => dispatch(saveUserToken(email, password)),
 });
 
 export default connect(mapState, mapDispatch)(Login);
