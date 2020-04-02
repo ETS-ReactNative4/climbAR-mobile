@@ -30,14 +30,7 @@ class Login extends Component {
 
   logIn = () => {
     const {email, password} = this.state;
-    this.props
-      .saveUserToken(email, password)
-      .then(() => {
-        console.log('token is saved');
-      })
-      .catch(error => {
-        this.setState({error});
-      });
+    this.props.saveUserToken(email, password);
   };
 
   signUp = () => {

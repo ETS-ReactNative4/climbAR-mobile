@@ -23,15 +23,11 @@ class Navigator extends Component {
   }
 
   _bootstrapAsync = () => {
-    this.props
-      .getUserToken()
-      .then(() => console.log('getUserToken got: ', this.props.token.token))
-      .catch(error => console.error(error));
+    this.props.getUserToken();
   };
   render() {
     const {token} = this.props;
-    console.log('token is: ', token.token);
-
+    console.log('TOKEN IS ', token);
     return (
       <NavigationContainer>
         <Stack.Navigator>

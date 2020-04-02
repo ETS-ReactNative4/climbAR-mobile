@@ -14,6 +14,7 @@ import chalk from 'chalk';
 import {getCookie} from '../../utils';
 import {fetchClimbingRoutes} from './climbingRoutesThunks';
 import AsyncStorage from '@react-native-community/async-storage';
+import {emailId} from '../utils';
 
 import {SAVE_TOKEN} from '../constants';
 
@@ -47,7 +48,7 @@ export const fetchUser = sessionId => {
   };
 };
 
-export const logInUser = token => {
+export const getUser = token => {
   return function thunk(dispatch) {
     return axios
       .get(`https://climbar.herokuapp.com/api/users/token/${token}`)
@@ -62,20 +63,30 @@ export const logInUser = token => {
 };
 
 // Thunk for creating a user
-export const createUser = ({email, password}) => {
+export const createUser = (email, password) => {
+  const token = emailId(email);
   const req = {
     email,
     password,
     userType: 'Climber',
+    token: emailId(email),
   };
   return dispatch => {
-    return axios
-      .post('https://climbar.herokuapp.com/api/users', req)
-      .then(res => {
-        dispatch(setUser(res.data));
+    AsyncStorage.setItem('userToken', token)
+      .then(() => {
+        dispatch(saveToken(token));
+        return axios
+          .post('https://climbar.herokuapp.com/api/users/mobile', req)
+          .then(res => {
+            console.log('NEW USER = ', res.data);
+            dispatch(setUser(res.data));
+          })
+          .catch(e => {
+            console.warn(e);
+          });
       })
       .catch(e => {
-        console.warn(e);
+        console.log('ERROR SETTING TOKEN IN ASYNC STORAGE ', e);
       });
   };
 };
@@ -192,7 +203,7 @@ export const getUserToken = () => {
       .then(data => {
         console.log('returning from getItem: ', data);
         dispatch(getToken(data));
-        dispatch(logInUser(data));
+        dispatch(getUser(data));
       })
       .catch(err => {
         dispatch(tokenError(err.message || 'ERROR'));
@@ -202,13 +213,15 @@ export const getUserToken = () => {
 
 export const saveUserToken = (email, password) => {
   return function thunk(dispatch) {
-    return AsyncStorage.setItem('userToken', 'abc')
+    // making my own id here b/c the two most popular uuid libraries don't currently work w react native. See issue: https://github.com/uuidjs/uuid/issues/375
+    const token = emailId(email);
+    return AsyncStorage.setItem('userToken', token)
       .then(data => {
-        const req = {email, password, token: 'abc'};
-        dispatch(saveToken('abc'));
+        const req = {email, password, token};
+        dispatch(saveToken(token));
         axios
           .post('https://climbar.herokuapp.com/api/users/token', req)
-          .then(res => dispatch(logInUser('abc')))
+          .then(res => dispatch(getUser('abc')))
           .catch(err => console.log(err));
       })
       .catch(err => {

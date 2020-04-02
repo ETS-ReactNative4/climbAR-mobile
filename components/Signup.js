@@ -74,21 +74,7 @@ class Signup extends Component {
   };
   onSubmit = values => {
     const {email, password} = values;
-    this.props
-      .createUser(values)
-      .then(() => {
-        this.props
-          .saveUserToken(email, password)
-          .then(() => {
-            console.log('redirecting to Home');
-          })
-          .catch(error => {
-            this.setState({error});
-          });
-      })
-      .catch(() => {
-        alert('There was an error with your signing up');
-      });
+    this.props.createUser(email, password);
   };
   renderTextInput = field => {
     const {
@@ -190,7 +176,7 @@ const mapState = ({token}) => ({token});
 
 const mapDispatchToProps = dispatch => {
   return {
-    createUser: values => dispatch(createUser(values)),
+    createUser: (email, password) => dispatch(createUser(email, password)),
     saveUserToken: () => dispatch(saveUserToken()),
   };
 };
