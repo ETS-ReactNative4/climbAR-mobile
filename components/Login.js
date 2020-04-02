@@ -30,7 +30,6 @@ class Login extends Component {
 
   logIn = () => {
     const {email, password} = this.state;
-    console.log('email: ', email);
     this.props
       .saveUserToken(email, password)
       .then(() => {

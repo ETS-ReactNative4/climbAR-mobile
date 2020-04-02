@@ -52,9 +52,6 @@ export const logInUser = token => {
     return axios
       .get(`https://climbar.herokuapp.com/api/users/token/${token}`)
       .then(res => {
-        // const {user, completedRouteInfo} = res.data;
-        // user['completedRouteInfo'] = completedRouteInfo;
-        console.log(res.data);
         const {user} = res.data;
         dispatch(setUser(user));
       })
@@ -207,7 +204,6 @@ export const saveUserToken = (email, password) => {
   return function thunk(dispatch) {
     return AsyncStorage.setItem('userToken', 'abc')
       .then(data => {
-        console.log(email, ' ,', password);
         const req = {email, password, token: 'abc'};
         dispatch(saveToken('abc'));
         axios

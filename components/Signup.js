@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
 });
-
+//todo: fix users api update
 class Signup extends Component {
   constructor() {
     super();
@@ -68,20 +68,17 @@ class Signup extends Component {
       password: '',
     };
   }
-  handleChange = ({target: {name, value}}) => {
-    this.setState({
-      [name]: value,
-    });
-  };
+
   loginScreen = () => {
     this.props.navigation.navigate('Login');
   };
   onSubmit = values => {
+    const {email, password} = values;
     this.props
       .createUser(values)
       .then(() => {
         this.props
-          .saveUserToken()
+          .saveUserToken(email, password)
           .then(() => {
             console.log('redirecting to Home');
           })
@@ -106,7 +103,6 @@ class Signup extends Component {
     return (
       <View>
         <InputText
-          handleChange={this.handleChange}
           onChangeText={onChange}
           maxLength={maxLength}
           placeholder={placeholder}

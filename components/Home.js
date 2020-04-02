@@ -26,9 +26,7 @@ class Home extends Component {
   logOutAsync = () => {
     this.props
       .removeUserToken()
-      .then(() => {
-        console.log('token after remove is: ', this.props.token.token);
-      })
+      .then(() => {})
       .catch(error => this.setState({error}));
   };
 
