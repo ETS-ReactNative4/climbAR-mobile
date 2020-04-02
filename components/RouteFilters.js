@@ -31,7 +31,6 @@ class RouteFilters extends Component {
       handleInput,
       props: {routeFilters},
     } = this;
-    console.log('completed ', routeFilters.completed === true);
     return (
       <Form style={{flex: 9, flexDirection: 'column'}}>
         <Item picker style={{flexDirection: 'row'}}>

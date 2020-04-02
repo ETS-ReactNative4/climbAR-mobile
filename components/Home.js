@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
+import {connect} from 'react-redux';
 import {
   LearnMoreLinks,
   Colors,
@@ -13,14 +14,22 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {Text} from 'native-base';
+import {Text, Button} from 'native-base';
 import axios from 'axios';
-import climbingRoutes from './ClimbingRoutes';
+import ClimbingRoutes from './ClimbingRoutes';
+import {removeUserToken} from '../redux/thunks/userThunks';
 
-export default class Home extends Component {
+class Home extends Component {
   allClimbingRoutes = () => {
     this.props.navigation.navigate('ClimbingRoutes');
   };
+  logOutAsync = () => {
+    this.props
+      .removeUserToken()
+      .then(() => {})
+      .catch(error => this.setState({error}));
+  };
+
   render() {
     return (
       <SafeAreaView>
@@ -30,6 +39,9 @@ export default class Home extends Component {
           </TouchableOpacity>
         </View>
         <View style={styles.logoContainer}>
+          <Button primary onPress={this.logOutAsync}>
+            <Text>I'm done, log me out.</Text>
+          </Button>
           <Text> Connect Collaborate & Create Amazing Climbing Routes </Text>
           <Image
             style={{width: 350, height: 85}}
@@ -82,3 +94,13 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
+
+const mapState = ({token}) => ({token});
+
+const mapDispatch = dispatch => {
+  return {
+    removeUserToken: () => dispatch(removeUserToken()),
+  };
+};
+
+export default connect(mapState, mapDispatch)(Home);

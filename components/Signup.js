@@ -13,7 +13,7 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {Field, reduxForm} from 'redux-form';
 import InputText from './InputText';
-import {createUser} from '../redux/thunks/userThunks';
+import {createUser, saveUserToken} from '../redux/thunks/userThunks';
 
 const styles = StyleSheet.create({
   container: {
@@ -59,20 +59,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
 });
-
+//todo: fix users api update
 class Signup extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
   loginScreen = () => {
     this.props.navigation.navigate('Login');
   };
   onSubmit = values => {
-    this.props
-      .createUser(values)
-      .then(() => {
-        this.props.navigation.navigate('Home');
-      })
-      .catch(() => {
-        alert('There was an error with your signing up');
-      });
+    const {email, password} = values;
+    this.props.createUser(email, password);
   };
   renderTextInput = field => {
     const {
@@ -170,14 +172,17 @@ const validate = values => {
   return errors;
 };
 
+const mapState = ({token}) => ({token});
+
 const mapDispatchToProps = dispatch => {
   return {
-    createUser: values => dispatch(createUser(values)),
+    createUser: (email, password) => dispatch(createUser(email, password)),
+    saveUserToken: () => dispatch(saveUserToken()),
   };
 };
 //composing the functions with connect and redux form
 export default compose(
-  connect(null, mapDispatchToProps),
+  connect(mapState, mapDispatchToProps),
   reduxForm({
     form: 'register',
     validate,

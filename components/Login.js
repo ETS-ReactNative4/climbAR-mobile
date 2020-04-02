@@ -9,17 +9,30 @@ import {
   TouchableOpacity,
   onChangeText,
 } from 'react-native';
+import {connect} from 'react-redux';
 import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
+import {saveUserToken} from '../redux/thunks/userThunks';
 
-export default class Login extends Component {
-  state = {
-    email: '',
-    password: '',
+class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  handleChange = (name, value) => {
+    this.setState({
+      [name]: value,
+    });
   };
+
   logIn = () => {
-    this.props.navigation.navigate('Home');
+    const {email, password} = this.state;
+    this.props.saveUserToken(email, password);
   };
+
   signUp = () => {
     this.props.navigation.navigate('Signup');
   };
@@ -38,12 +51,14 @@ export default class Login extends Component {
           style={styles.inputBox}
           placeholder="Email"
           placeholderTextColor="#e4572e"
+          onChangeText={value => this.handleChange('email', value)}
         />
         <TextInput
           style={styles.inputBox}
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#e4572e"
+          onChangeText={value => this.handleChange('password', value)}
         />
         <TouchableOpacity style={styles.button} onPress={this.logIn}>
           <Text style={styles.buttonText}> Login </Text>
@@ -102,3 +117,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+const mapState = state => ({
+  token: state.token,
+});
+
+const mapDispatch = dispatch => ({
+  saveUserToken: (email, password) => dispatch(saveUserToken(email, password)),
+});
+
+export default connect(mapState, mapDispatch)(Login);

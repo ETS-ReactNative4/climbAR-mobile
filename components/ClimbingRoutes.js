@@ -28,6 +28,7 @@ class ClimbingRoutes extends Component {
 
   componentDidMount() {
     this.props.fetchClimbingRoutes();
+    console.log('user is ', this.props.user);
   }
   userCompletedRoute(routeId) {
     const {user} = this.props;
@@ -92,6 +93,7 @@ class ClimbingRoutes extends Component {
     }
     return true;
   }
+
   filteredRoutes() {
     const {
       props: {climbingRoutes, user, editModel},

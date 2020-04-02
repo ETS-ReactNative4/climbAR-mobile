@@ -1,25 +1,58 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {connect} from 'react-redux';
+
 import Login from './Login';
 import Home from './Home';
 import Signup from './Signup';
-import climbingRoutes from './ClimbingRoutes';
 import FilterDrawer from './FilterDrawer';
+import {getUserToken} from '../redux/thunks/userThunks';
 
 const Stack = createStackNavigator();
 //function to create a new stack navigator, pass an object into function to configure what different screens we want to register for this stack navigator
-const Navigator = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Signup" component={Signup} />
-        <Stack.Screen name="ClimbingRoutes" component={FilterDrawer} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+class Navigator extends Component {
+  static navigationOptions = {
+    header: null,
+  };
+  constructor() {
+    super();
+  }
+  componentDidMount() {
+    this._bootstrapAsync();
+  }
+
+  _bootstrapAsync = () => {
+    this.props.getUserToken();
+  };
+  render() {
+    const {token} = this.props;
+    console.log('TOKEN IS ', token);
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          {token.token == null ? (
+            <>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Signup" component={Signup} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="ClimbingRoutes" component={FilterDrawer} />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+}
+
+const mapState = ({token, user}) => ({token, user});
+const mapDispatch = dispatch => {
+  return {
+    getUserToken: () => dispatch(getUserToken()),
+  };
 };
 
-export default Navigator;
+export default connect(mapState, mapDispatch)(Navigator);

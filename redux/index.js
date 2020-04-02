@@ -11,6 +11,7 @@ import {
   routeFilters,
   routeImage,
   filterDrawer,
+  token,
 } from './reducers';
 
 export default combineReducers({
@@ -24,4 +25,5 @@ export default combineReducers({
   routeImage,
   filterDrawer,
   form: formReducer,
+  token,
 });
