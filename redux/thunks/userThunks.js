@@ -218,7 +218,7 @@ export const saveUserToken = (email, password) => {
         dispatch(saveToken(token));
         axios
           .post('https://climbar.herokuapp.com/api/users/token', req)
-          .then(res => dispatch(getUser('abc')))
+          .then(res => dispatch(getUser(token)))
           .catch(err => console.log(err));
       })
       .catch(err => {
