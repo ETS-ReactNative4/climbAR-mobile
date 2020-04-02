@@ -16,8 +16,6 @@ import {fetchClimbingRoutes} from './climbingRoutesThunks';
 import AsyncStorage from '@react-native-community/async-storage';
 import {emailId} from '../utils';
 
-import {SAVE_TOKEN} from '../constants';
-
 export const fetchUser = sessionId => {
   return dispatch => {
     return axios
@@ -78,7 +76,6 @@ export const createUser = (email, password) => {
         return axios
           .post('https://climbar.herokuapp.com/api/users/mobile', req)
           .then(res => {
-            console.log('NEW USER = ', res.data);
             dispatch(setUser(res.data));
           })
           .catch(e => {
