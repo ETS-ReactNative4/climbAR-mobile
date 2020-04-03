@@ -19,6 +19,7 @@ class FilterDrawer extends Component {
       <Drawer
         open={this.props.filterDrawer.show}
         ref={ref => (this._drawer = ref)}
+        style={{backgroundColor: '#f0eae3'}}
         content={
           <View style={{flex: 1, flexDirection: 'column'}}>
             <View

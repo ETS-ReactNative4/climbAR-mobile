@@ -32,21 +32,21 @@ class Home extends Component {
 
   render() {
     return (
-      <SafeAreaView>
-        <View>
-          <TouchableOpacity onPress={this.allClimbingRoutes}>
-            <Text> Cllimbing Routes </Text>
-          </TouchableOpacity>
-        </View>
+      <SafeAreaView style={styles.container}>
         <View style={styles.logoContainer}>
-          <Button primary onPress={this.logOutAsync}>
-            <Text>I'm done, log me out.</Text>
-          </Button>
-          <Text> Connect Collaborate & Create Amazing Climbing Routes </Text>
           <Image
             style={{width: 350, height: 85}}
             source={require('./../public/logo.png')}
           />
+          <Text> Connect Collaborate & Create Amazing Climbing Routes </Text>
+        </View>
+        <View>
+          <Button onPress={this.allClimbingRoutes}>
+            <Text> Cllimbing Routes </Text>
+          </Button>
+          <Button primary onPress={this.logOutAsync}>
+            <Text>I'm done, log me out.</Text>
+          </Button>
         </View>
       </SafeAreaView>
     );
@@ -54,10 +54,16 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-  logoContainer: {
+  container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 300,
+    backgroundColor: '#f0eae3',
+  },
+  logoContainer: {
+    // flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   engine: {

@@ -39,7 +39,11 @@ class Navigator extends Component {
           ) : (
             <>
               <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="ClimbingRoutes" component={FilterDrawer} />
+              <Stack.Screen
+                name="ClimbingRoutes"
+                component={FilterDrawer}
+                options={{title: 'Climbing Routes'}}
+              />
             </>
           )}
         </Stack.Navigator>

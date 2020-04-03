@@ -118,7 +118,7 @@ export const likeRoute = (user, route) => {
         route,
       })
       .then(res => {
-        dispatch(fetchUser(getCookie()));
+        dispatch(getUser(user.token));
         dispatch(fetchClimbingRoutes());
       })
       .catch(err => {
@@ -134,7 +134,7 @@ export const unLikeRoute = (user, route) => {
         data: {user, route},
       })
       .then(() => {
-        dispatch(fetchUser(getCookie()));
+        dispatch(getUser(user.token));
         dispatch(fetchClimbingRoutes());
       })
       .catch(err => {
@@ -151,7 +151,7 @@ export const markComplete = (user, route) => {
         route,
       })
       .then(res => {
-        dispatch(fetchUser(getCookie()));
+        dispatch(getUser(user.token));
         dispatch(fetchClimbingRoutes());
       })
       .catch(err => {
@@ -167,7 +167,7 @@ export const unComplete = (user, route) => {
         data: {user, route},
       })
       .then(res => {
-        dispatch(fetchUser(getCookie()));
+        dispatch(getUser(user.token));
         dispatch(fetchClimbingRoutes());
       })
       .catch(err => {
@@ -185,7 +185,7 @@ export const rate = (user, route, rating) => {
         rating,
       })
       .then(() => {
-        dispatch(fetchUser(getCookie()));
+        dispatch(getUser(user.token));
         dispatch(fetchClimbingRoutes());
       })
       .catch(err => {
