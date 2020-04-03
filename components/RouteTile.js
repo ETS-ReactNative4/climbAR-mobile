@@ -6,7 +6,8 @@ import RatingButton from './RatingButton';
 import RatingDisplay from './RatingDisplay';
 import {average} from '../utils';
 
-import {Card, CardItem, Button, Text} from 'native-base';
+import {Card, CardItem, Button, Text, View} from 'native-base';
+import {StyleSheet} from 'react-native';
 
 class RouteTile extends Component {
   constructor() {
@@ -43,22 +44,35 @@ class RouteTile extends Component {
             {route.grade}
           </Text>
         </Button>
-        <CardItem style={{backgroundColor: '#f0eae3'}}>
+        <CardItem style={styles.background}>
           <LikeButton route={route} />
           <CompleteButton route={route} />
           <RatingDisplay avgRating={avgRating} />
           <Text style={{paddingLeft: 5}}>Difficulty</Text>
         </CardItem>
-        <CardItem
-          style={{justifyContent: 'center', backgroundColor: '#f0eae3'}}>
-          <Text>Expiring {daysToExpire()} </Text>
-        </CardItem>
-        <CardItem style={{backgroundColor: '#f0eae3'}}>
-          {user.userType && <RatingButton route={route} />}
+        <CardItem style={styles.expireItem}>
+          <View style={{alignItems: 'flex-start'}}>
+            <Text>Expiring {daysToExpire()} </Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            {user.userType && <RatingButton route={route} />}
+          </View>
         </CardItem>
       </Card>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  background: {
+    backgroundColor: '#f0eae3',
+  },
+  expireItem: {
+    backgroundColor: '#f0eae3',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+});
 
 export default RouteTile;
