@@ -43,16 +43,19 @@ class RouteTile extends Component {
             {route.grade}
           </Text>
         </Button>
-        <CardItem>
+        <CardItem style={{backgroundColor: '#f0eae3'}}>
           <LikeButton route={route} />
           <CompleteButton route={route} />
           <RatingDisplay avgRating={avgRating} />
           <Text style={{paddingLeft: 5}}>Difficulty</Text>
         </CardItem>
-        <CardItem style={{justifyContent: 'center'}}>
+        <CardItem
+          style={{justifyContent: 'center', backgroundColor: '#f0eae3'}}>
           <Text>Expiring {daysToExpire()} </Text>
         </CardItem>
-        <CardItem>{user.userType && <RatingButton route={route} />}</CardItem>
+        <CardItem style={{backgroundColor: '#f0eae3'}}>
+          {user.userType && <RatingButton route={route} />}
+        </CardItem>
       </Card>
     );
   }

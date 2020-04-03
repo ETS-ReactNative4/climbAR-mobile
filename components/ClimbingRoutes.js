@@ -131,7 +131,7 @@ class ClimbingRoutes extends Component {
     return (
       <Container>
         {climbingRoutes.length ? (
-          <Container>
+          <Container style={{backgroundColor: '#f0eae3'}}>
             <Icon
               type="FontAwesome"
               name="filter"
@@ -141,7 +141,7 @@ class ClimbingRoutes extends Component {
             <Content>{filteredRoutes()}</Content>
           </Container>
         ) : (
-          <LoadSpinner />
+          <LoadSpinner style={{backgroundColor: '#f0eae3'}} />
         )}
       </Container>
     );
