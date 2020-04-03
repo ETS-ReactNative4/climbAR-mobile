@@ -28,21 +28,18 @@ class ClimbingRoutes extends Component {
 
   componentDidMount() {
     this.props.fetchClimbingRoutes();
-    console.log('user is ', this.props.user);
   }
   userCompletedRoute(routeId) {
     const {user} = this.props;
-    if (!user.completedRoutes) return false;
-    if (!user.completedRoutes.filter(_r => _r.climbingRouteId === routeId)[0])
-      return false;
-    return true;
+    return user.completedRoutes.filter(_r => _r.climbingRouteId === routeId)[0]
+      ? true
+      : false;
   }
   userLikedRoute(routeId) {
     const {user} = this.props;
-    if (!user.likedroutes) return false;
-    if (!user.likedRoutes.filter(_r => _r.climbingRouteId === routeId)[0])
-      return false;
-    return true;
+    return user.likedRoutes.filter(_r => _r.climbingRouteId === routeId)[0]
+      ? true
+      : false;
   }
   isInFilter(route) {
     const {
@@ -50,6 +47,7 @@ class ClimbingRoutes extends Component {
       userCompletedRoute,
       userLikedRoute,
     } = this;
+
     const holdColorDictionary = {
       '#a61901': 'Red',
       '#ce7801': 'Orange',
