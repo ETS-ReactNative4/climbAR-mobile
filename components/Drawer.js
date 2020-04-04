@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Button, View} from 'react-native';
+import {Button, View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DrawerRouter} from '@react-navigation/native';
 import Navigation from './Routes';
 import Home from './Home';
 import FilterDrawer from './FilterDrawer';
@@ -13,7 +13,9 @@ import RouteTile from './RouteTile';
 import ClimbingRoutes from './ClimbingRoutes';
 import SingleClimbingRoute from './SingleClimbingRoute';
 import {getUserToken} from '../redux/thunks/userThunks';
+import Icon from 'react-native-vector-icons/Ionicons';
 
+//Creating individual stacks and screen so the drawer navigation is able to wrap around as the higher order component
 const HomeStack = createStackNavigator();
 const HomeStackScreen = ({navigation}) => (
   <HomeStack.Navigator>
@@ -23,6 +25,13 @@ const HomeStackScreen = ({navigation}) => (
       options={{
         headerStyle: {backgroundColor: '#e4572e'},
         headerTintColor: '#000',
+        headerLeft: () => (
+          <Icon.Button
+            name="ios-menu"
+            size={30}
+            style={{backgroundColor: '#e4572e'}}
+            onPress={() => navigation.openDrawer()}></Icon.Button>
+        ),
       }}
     />
   </HomeStack.Navigator>
@@ -38,6 +47,13 @@ const ClimbingRoutesStackScreen = ({navigation}) => (
         title: 'Climbing Routes',
         headerStyle: {backgroundColor: '#e4572e'},
         headerTintColor: '#000',
+        headerLeft: () => (
+          <Icon.Button
+            name="ios-menu"
+            size={30}
+            style={{backgroundColor: '#e4572e'}}
+            onPress={() => navigation.openDrawer()}></Icon.Button>
+        ),
       }}
     />
     <ClimbingRoutesStack.Screen
@@ -47,7 +63,9 @@ const ClimbingRoutesStackScreen = ({navigation}) => (
     <ClimbingRoutesStack.Screen
       name="SingleClimbingRoute"
       component={SingleClimbingRoute}
-      options={{title: 'Selected Climbing Route'}}
+      options={{
+        title: 'Selected Climbing Route',
+      }}
     />
   </ClimbingRoutesStack.Navigator>
 );
@@ -67,7 +85,6 @@ const SignUpStackScreen = ({navigation}) => (
 );
 
 const LogInStack = createStackNavigator();
-
 const LogInStackScreen = ({navigation}) => (
   <LogInStack.Navigator>
     <LogInStack.Screen
@@ -80,6 +97,7 @@ const LogInStackScreen = ({navigation}) => (
     />
   </LogInStack.Navigator>
 );
+
 const Drawer = createDrawerNavigator();
 class DrawerNavigation extends Component {
   componentDidMount() {
@@ -87,6 +105,12 @@ class DrawerNavigation extends Component {
   }
   _bootstrapAsync = () => {
     this.props.getUserToken();
+  };
+  logOutAsync = () => {
+    this.props
+      .removeUserToken()
+      .then(() => {})
+      .catch(error => this.setState({error}));
   };
   render() {
     const {token, climbingRoutes} = this.props;

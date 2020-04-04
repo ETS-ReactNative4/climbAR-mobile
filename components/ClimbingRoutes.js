@@ -118,14 +118,12 @@ class ClimbingRoutes extends Component {
       <Text>No routes...</Text>
     );
   }
-
   logOutAsync = () => {
     this.props
       .removeUserToken()
       .then(() => {})
       .catch((error) => this.setState({error}));
   };
-
   render() {
     const {
       props: {
