@@ -38,16 +38,41 @@ class Navigator extends Component {
         <Stack.Navigator>
           {token.token == null ? (
             <>
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Signup" component={Signup} />
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{
+                  headerStyle: {backgroundColor: '#e4572e'},
+                  headerTintColor: '#000',
+                }}
+              />
+              <Stack.Screen
+                name="Signup"
+                component={Signup}
+                options={{
+                  headerStyle: {backgroundColor: '#e4572e'},
+                  headerTintColor: '#000',
+                }}
+              />
             </>
           ) : (
             <>
-              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{
+                  headerStyle: {backgroundColor: '#e4572e'},
+                  headerTintColor: '#000',
+                }}
+              />
               <Stack.Screen
                 name="ClimbingRoutes"
                 component={FilterDrawer}
-                options={{title: 'All Climbing Routes'}}
+                options={{
+                  title: 'Climbing Routes',
+                  headerStyle: {backgroundColor: '#e4572e'},
+                  headerTintColor: '#000',
+                }}
               />
               <Stack.Screen
                 name="AllClimbingRoutes"
@@ -57,8 +82,7 @@ class Navigator extends Component {
               <Stack.Screen
                 name="SingleClimbingRoute"
                 component={SingleClimbingRoute}
-                options={{title: 'Selected Climbing Route'}}
-              />
+                options={{title: 'Selected Climbing Route'}} />
             </>
           )}
         </Stack.Navigator>
@@ -67,11 +91,8 @@ class Navigator extends Component {
   }
 }
 
-const mapState = ({token, user}) => ({
-  token,
-  user,
-});
-const mapDispatch = dispatch => {
+const mapState = ({token, user}) => ({token, user});
+const mapDispatch = (dispatch) => {
   return {
     getUserToken: () => dispatch(getUserToken()),
   };

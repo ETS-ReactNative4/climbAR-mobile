@@ -1,9 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {rate} from '../redux/thunks/UserThunks';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import {rate} from '../redux/thunks/userThunks';
+import {View, Form, Item, Picker, Text, Icon, Button} from 'native-base';
 
 class RatingForm extends React.Component {
   constructor() {
@@ -16,13 +14,13 @@ class RatingForm extends React.Component {
   }
   rated() {
     const {route, user} = this.props;
-    const rating = route.ratings.filter(_r => _r.userId === user.id)[0];
+    const rating = route.ratings.filter((_r) => _r.userId === user.id)[0];
     return rating
       ? `You rated this route ${rating.rating}. Change your rating?`
       : `You haven't rated this route`;
   }
-  handleInput(e) {
-    this.setState({[e.target.name]: e.target.value});
+  handleInput(name, value) {
+    this.setState({[name]: value});
   }
   render() {
     const {
@@ -31,43 +29,61 @@ class RatingForm extends React.Component {
       handleInput,
     } = this;
     return (
-      <div>
-        <div>{this.rated()}</div>
-        <br />
-        <div>How hard was this compared to other {route.grade} routes?</div>
-        <Form.Control
-          value={this.state.rating}
-          as="select"
-          id="rating"
-          name="rating"
-          type="select"
-          onChange={handleInput}
-          style={{marginTop: '10px', marginBottom: '10px'}}>
-          <option value="1">1 - Like climbing a later</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5 - Normal for a {route.grade}</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10 - Impossible</option>
-        </Form.Control>
-        <Button
-          onClick={() => {
-            rate(user, route, rating);
-          }}
-          variant="dark">
-          Rate It
-        </Button>
-      </div>
+      <View style={{flex: 9, backgroundColor: '#f0eae3'}}>
+        <Text style={{flex: 1, paddingHorizontal: 20}}>{this.rated()}</Text>
+        <Text style={{flex: 1, paddingHorizontal: 20}}>
+          How hard was this compared to other {route.grade} routes?
+        </Text>
+        <Form
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            paddingHorizontal: 5,
+          }}>
+          <Item picker style={{flexDirection: 'row'}}>
+            <Picker
+              name="rating"
+              mode="dropdown"
+              iosIcon={<Icon name="arrow-down" />}
+              placeholder=""
+              placeholderStyle={{color: '#bfc6ea'}}
+              placeholderIconColor="#007aff"
+              selectedValue={this.state.rating || ''}
+              onValueChange={(value) => handleInput('rating', value)}>
+              <Picker.Item label="1 - Like climbing a later" value="1" />
+              <Picker.Item label="2" value="2" />
+              <Picker.Item label="3" value="3" />
+              <Picker.Item label="4" value="4" />
+              <Picker.Item
+                label={`5 - Normal for a ${route.grade}`}
+                value="5"
+              />
+              <Picker.Item label="6" value="6" />
+              <Picker.Item label="7" value="7" />
+              <Picker.Item label="8" value="8" />
+              <Picker.Item label="9" value="9" />
+              <Picker.Item label="10 - Impossible" value="10" />
+            </Picker>
+          </Item>
+        </Form>
+        <View style={{flex: 10}}>
+          <Button
+            rounded
+            bordered
+            onPress={() => {
+              rate(user, route, rating);
+            }}
+            style={{justifyContent: 'center'}}>
+            <Text>Rate It</Text>
+          </Button>
+        </View>
+      </View>
     );
   }
 }
 
 const mapState = ({user}) => ({user});
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     rate: (user, route, rating) => dispatch(rate(user, route, rating)),
   };
