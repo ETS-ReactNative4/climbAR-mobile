@@ -27,7 +27,7 @@ import ClimbingRoutes from './ClimbingRoutes';
 import Navigator from './Routes';
 import {PersistGate} from 'redux-persist/integration/react';
 import persist from './../store';
-
+import DrawerNavigation from './Drawer';
 //persist is returning a function from the store, will have to invoke
 const persistStore = persist();
 
@@ -36,7 +36,7 @@ class App extends Component {
     return (
       <Provider store={persistStore.store}>
         <PersistGate loading={null} persistor={persistStore.persistor}>
-          <Navigator />
+          <DrawerNavigation/>
         </PersistGate>
       </Provider>
     );

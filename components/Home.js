@@ -39,14 +39,14 @@ class Home extends Component {
           />
           <Text> Connect Collaborate & Create Amazing Climbing Routes </Text>
         </View>
-        <View>
+        {/* <View>
           <Button onPress={this.allClimbingRoutes}>
             <Text> Climbing Routes </Text>
           </Button>
           <Button primary onPress={this.logOutAsync}>
             <Text>I'm done, log me out.</Text>
           </Button>
-        </View>
+        </View> */}
       </SafeAreaView>
     );
   }
