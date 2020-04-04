@@ -68,7 +68,6 @@ class Signup extends Component {
       password: '',
     };
   }
-
   loginScreen = () => {
     this.props.navigation.navigate('Login');
   };

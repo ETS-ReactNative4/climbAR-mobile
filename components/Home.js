@@ -29,7 +29,6 @@ class Home extends Component {
       .then(() => {})
       .catch(error => this.setState({error}));
   };
-
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -42,7 +41,7 @@ class Home extends Component {
         </View>
         <View>
           <Button onPress={this.allClimbingRoutes}>
-            <Text> Cllimbing Routes </Text>
+            <Text> Climbing Routes </Text>
           </Button>
           <Button primary onPress={this.logOutAsync}>
             <Text>I'm done, log me out.</Text>

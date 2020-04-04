@@ -51,7 +51,7 @@ class FilterDrawer extends Component {
             </View>
           ) : null
         }>
-        <ClimbingRoutes />
+        <ClimbingRoutes navigation={this.props.navigation} />
       </Drawer>
     );
   }

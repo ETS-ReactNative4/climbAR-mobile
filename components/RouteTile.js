@@ -13,12 +13,12 @@ import {StyleSheet} from 'react-native';
 class RouteTile extends Component {
   constructor() {
     super();
-    // this.editRoute = this.editRoute.bind(this);
   }
-  //   editRoute() {
-  //     this.props.editModel(this.props.route);
-  //     this.props.history.push('https://climbar.herokuapp.com/admin/create');
-  //   }
+  pressHandler = id => {
+    this.props.navigation.navigate('SingleClimbingRoute', {
+      climbingRouteId: id,
+    });
+  };
   render() {
     const {route, user, editModel} = this.props;
     const component = this;
@@ -40,7 +40,8 @@ class RouteTile extends Component {
           block
           style={{
             backgroundColor: route.holdColor,
-          }}>
+          }}
+          onPress={() => this.pressHandler(route.id)}>
           <Text style={{fontWeight: 'bold', color: 'black'}}>
             {route.grade}
           </Text>
