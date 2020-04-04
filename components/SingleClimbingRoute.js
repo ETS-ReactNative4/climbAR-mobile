@@ -5,7 +5,6 @@ import RouteTile from './RouteTile';
 import {Container, Header, Text, Icon, View} from 'native-base';
 import {StyleSheet, TouchableOpacity, Linking} from 'react-native';
 import LoadSpinner from './LoadSpinner';
-import Hyperlink from 'react-native-hyperlink';
 
 const holdColorDictionary = {
   '#a61901': 'Red',
