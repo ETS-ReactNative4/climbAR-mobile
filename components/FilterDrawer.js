@@ -24,11 +24,11 @@ class FilterDrawer extends Component {
         style={styles.container}
         content={
           filterDrawer.show ? (
-            <View style={styles.filterDrawerContainer}>
-              <View style={styles.filterDrawerHeader}>
-                <Text style={styles.filterText}>Filters</Text>
+            <View style={styles.DrawerContainer}>
+              <View style={styles.DrawerHeader}>
+                <Text style={styles.headerText}>Filters</Text>
                 <Icon
-                  style={styles.filterClosingIcon}
+                  style={styles.closingIcon}
                   type="FontAwesome"
                   name="close"
                   onPress={this.props.toggleFilterDrawer}
@@ -37,19 +37,11 @@ class FilterDrawer extends Component {
               <RouteFilters />
             </View>
           ) : ratingFormDrawer.show ? (
-            <View style={{flex: 1, flexDirection: 'column'}}>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  height: 50,
-                  alignItems: 'center',
-                }}>
-                <Text style={{flex: 7, fontSize: 18, paddingLeft: 20}}>
-                  Rate this Route?
-                </Text>
+            <View style={styles.DrawerContainer}>
+              <View style={styles.DrawerHeader}>
+                <Text style={styles.headerText}>Rate this Route?</Text>
                 <Icon
-                  style={{width: 30, flex: 1}}
+                  style={styles.closingIcon}
                   type="FontAwesome"
                   name="close"
                   onPress={this.props.closeRatingFormDrawer}
@@ -80,22 +72,23 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f0eae3',
   },
-  filterDrawerContainer: {
+  DrawerContainer: {
     flex: 1,
     flexDirection: 'column',
+    backgroundColor: '#f0eae3',
   },
-  filterDrawerHeader: {
+  DrawerHeader: {
     flex: 1,
     flexDirection: 'row',
     height: 50,
     alignItems: 'center',
   },
-  filterText: {
+  headerText: {
     flex: 7,
     fontSize: 18,
     paddingLeft: 20,
   },
-  filterClosingIcon: {
+  closingIcon: {
     width: 30,
     flex: 1,
   },

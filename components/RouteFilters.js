@@ -43,7 +43,7 @@ class RouteFilters extends Component {
             placeholderStyle={{color: '#bfc6ea'}}
             placeholderIconColor="#007aff"
             selectedValue={routeFilters.grade || ''}
-            onValueChange={value => handleInput('grade', value)}>
+            onValueChange={(value) => handleInput('grade', value)}>
             <Picker.Item label="All" value="" />
             <Picker.Item label="VB" value="VB" />
             {Array.from({length: 17}).map((_e, i) => (
@@ -60,7 +60,7 @@ class RouteFilters extends Component {
             placeholderStyle={{color: '#bfc6ea'}}
             placeholderIconColor="#007aff"
             selectedValue={routeFilters.holdColor || ''}
-            onValueChange={value => handleInput('holdColor', value)}>
+            onValueChange={(value) => handleInput('holdColor', value)}>
             <Picker.Item label="All" value="" />
             <Picker.Item label="Red" value="Red" />
             <Picker.Item label="Orange" value="Orange" />
@@ -109,9 +109,9 @@ class RouteFilters extends Component {
 }
 
 const mapState = ({routeFilters}) => ({routeFilters});
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    dispatchRouteFilters: filters => dispatch(dispatchRouteFilters(filters)),
+    dispatchRouteFilters: (filters) => dispatch(dispatchRouteFilters(filters)),
   };
 };
 

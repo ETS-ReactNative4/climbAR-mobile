@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {rate} from '../redux/thunks/userThunks';
-import {Content, Form, Item, Picker, Text, Icon, Button} from 'native-base';
+import {View, Form, Item, Picker, Text, Icon, Button} from 'native-base';
 
 class RatingForm extends React.Component {
   constructor() {
@@ -29,10 +29,17 @@ class RatingForm extends React.Component {
       handleInput,
     } = this;
     return (
-      <Content>
-        <Text>{this.rated()}</Text>
-        <Text>How hard was this compared to other {route.grade} routes?</Text>
-        <Form style={{flex: 9, flexDirection: 'column'}}>
+      <View style={{flex: 9, backgroundColor: '#f0eae3'}}>
+        <Text style={{flex: 1, paddingHorizontal: 20}}>{this.rated()}</Text>
+        <Text style={{flex: 1, paddingHorizontal: 20}}>
+          How hard was this compared to other {route.grade} routes?
+        </Text>
+        <Form
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            paddingHorizontal: 5,
+          }}>
           <Item picker style={{flexDirection: 'row'}}>
             <Picker
               name="rating"
@@ -59,13 +66,18 @@ class RatingForm extends React.Component {
             </Picker>
           </Item>
         </Form>
-        <Button
-          onPress={() => {
-            rate(user, route, rating);
-          }}>
-          <Text>Rate It</Text>
-        </Button>
-      </Content>
+        <View style={{flex: 10}}>
+          <Button
+            rounded
+            bordered
+            onPress={() => {
+              rate(user, route, rating);
+            }}
+            style={{justifyContent: 'center'}}>
+            <Text>Rate It</Text>
+          </Button>
+        </View>
+      </View>
     );
   }
 }
