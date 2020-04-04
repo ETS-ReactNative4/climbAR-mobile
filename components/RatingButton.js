@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {rate} from '../redux/thunks/userThunks';
 import {openRatingFormDrawer} from '../redux/actions.js';
 
-import {Button, Body, Text} from 'native-base';
+import {Button, Text} from 'native-base';
 
 class RatingButton extends React.Component {
   constructor() {
@@ -19,8 +19,8 @@ class RatingButton extends React.Component {
 
   render() {
     return (
-      <Button onPress={this.rateThisRoute}>
-        <Text>Rate it</Text>
+      <Button rounded bordered onPress={this.rateThisRoute}>
+        <Text style={{color: '#000'}}>Rate it</Text>
       </Button>
     );
   }

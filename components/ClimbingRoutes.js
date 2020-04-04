@@ -33,13 +33,15 @@ class ClimbingRoutes extends Component {
   }
   userCompletedRoute(routeId) {
     const {user} = this.props;
-    return user.completedRoutes.filter(_r => _r.climbingRouteId === routeId)[0]
+    return user.completedRoutes.filter(
+      (_r) => _r.climbingRouteId === routeId,
+    )[0]
       ? true
       : false;
   }
   userLikedRoute(routeId) {
     const {user} = this.props;
-    return user.likedRoutes.filter(_r => _r.climbingRouteId === routeId)[0]
+    return user.likedRoutes.filter((_r) => _r.climbingRouteId === routeId)[0]
       ? true
       : false;
   }
@@ -122,7 +124,7 @@ class ClimbingRoutes extends Component {
     this.props
       .removeUserToken()
       .then(() => {})
-      .catch(error => this.setState({error}));
+      .catch((error) => this.setState({error}));
   };
 
   render() {
@@ -148,8 +150,12 @@ class ClimbingRoutes extends Component {
                 style={{margin: 5}}
                 onPress={toggleFilterDrawer}
               />
-              <Button primary onPress={this.logOutAsync}>
-                <Text>Log out</Text>
+              <Button
+                rounded
+                dark
+                onPress={this.logOutAsync}
+                style={{margin: 5}}>
+                <Text style={{color: '#e4572e'}}>Log out</Text>
               </Button>
             </View>
             <Content>{filteredRoutes()}</Content>
@@ -169,7 +175,7 @@ const mapState = ({climbingRoutes, user, routeFilters, filterDrawer}) => ({
   filterDrawer,
 });
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     fetchClimbingRoutes: () => dispatch(fetchClimbingRoutes()),
     toggleFilterDrawer: () => dispatch(toggleFilterDrawer()),
