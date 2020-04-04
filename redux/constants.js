@@ -18,3 +18,5 @@ export const GET_TOKEN = Symbol('GET_TOKEN');
 export const SAVE_TOKEN = Symbol('SAVE_TOKEN');
 export const REMOVE_TOKEN = Symbol('REMOVE_TOKEN');
 export const TOKEN_ERROR = Symbol('TOKEN_ERROR');
+export const OPEN_RATING_FORM_DRAWER = Symbol('OPEN_RATING_FORM_DRAWER');
+export const CLOSE_RATING_FORM_DRAWER = Symbol('CLOSE_RATING_FORM_DRAWER');

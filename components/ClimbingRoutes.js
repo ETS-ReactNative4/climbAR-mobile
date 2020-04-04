@@ -5,6 +5,7 @@ import {toggleFilterDrawer} from '../redux/actions.js';
 import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
 import RouteTile from './RouteTile';
 import LoadSpinner from './LoadSpinner';
+import {removeUserToken} from '../redux/thunks/userThunks';
 
 import {
   Container,
@@ -15,6 +16,7 @@ import {
   CardItem,
   Icon,
   View,
+  Button,
 } from 'native-base';
 
 class ClimbingRoutes extends Component {
@@ -31,13 +33,15 @@ class ClimbingRoutes extends Component {
   }
   userCompletedRoute(routeId) {
     const {user} = this.props;
-    return user.completedRoutes.filter(_r => _r.climbingRouteId === routeId)[0]
+    return user.completedRoutes.filter(
+      (_r) => _r.climbingRouteId === routeId,
+    )[0]
       ? true
       : false;
   }
   userLikedRoute(routeId) {
     const {user} = this.props;
-    return user.likedRoutes.filter(_r => _r.climbingRouteId === routeId)[0]
+    return user.likedRoutes.filter((_r) => _r.climbingRouteId === routeId)[0]
       ? true
       : false;
   }
@@ -115,6 +119,14 @@ class ClimbingRoutes extends Component {
       <Text>No routes...</Text>
     );
   }
+
+  logOutAsync = () => {
+    this.props
+      .removeUserToken()
+      .then(() => {})
+      .catch((error) => this.setState({error}));
+  };
+
   render() {
     const {
       props: {
@@ -130,12 +142,22 @@ class ClimbingRoutes extends Component {
       <Container>
         {climbingRoutes.length ? (
           <Container style={{backgroundColor: '#f0eae3'}}>
-            <Icon
-              type="FontAwesome"
-              name="filter"
-              style={{margin: 5}}
-              onPress={toggleFilterDrawer}
-            />
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Icon
+                type="FontAwesome"
+                name="filter"
+                style={{margin: 5}}
+                onPress={toggleFilterDrawer}
+              />
+              <Button
+                rounded
+                dark
+                onPress={this.logOutAsync}
+                style={{margin: 5}}>
+                <Text style={{color: '#e4572e'}}>Log out</Text>
+              </Button>
+            </View>
             <Content>{filteredRoutes()}</Content>
           </Container>
         ) : (
@@ -153,10 +175,11 @@ const mapState = ({climbingRoutes, user, routeFilters, filterDrawer}) => ({
   filterDrawer,
 });
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     fetchClimbingRoutes: () => dispatch(fetchClimbingRoutes()),
     toggleFilterDrawer: () => dispatch(toggleFilterDrawer()),
+    removeUserToken: () => dispatch(removeUserToken()),
   };
 };
 
