@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {connect} from 'react-redux';
-
 import Login from './Login';
 import Home from './Home';
 import Signup from './Signup';
@@ -12,7 +11,6 @@ import SingleClimbingRoute from './SingleClimbingRoute';
 import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
 import RouteTile from './RouteTile';
 import ClimbingRoutes from './ClimbingRoutes';
-import RouteModel from './RouteModel'; 
 
 const Stack = createStackNavigator();
 //function to create a new stack navigator, pass an object into function to configure what different screens we want to register for this stack navigator
