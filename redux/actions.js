@@ -19,11 +19,26 @@ import {
   SAVE_TOKEN,
   REMOVE_TOKEN,
   TOKEN_ERROR,
+  OPEN_RATING_FORM_DRAWER,
+  CLOSE_RATING_FORM_DRAWER,
 } from './constants';
 
 export const toggleFilterDrawer = () => {
   return {
     type: TOGGLE_FILTER_DRAWER,
+  };
+};
+
+export const openRatingFormDrawer = route => {
+  return {
+    type: OPEN_RATING_FORM_DRAWER,
+    route,
+  };
+};
+
+export const closeRatingFormDrawer = () => {
+  return {
+    type: CLOSE_RATING_FORM_DRAWER,
   };
 };
 

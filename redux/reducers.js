@@ -18,6 +18,8 @@ import {
   SAVE_TOKEN,
   REMOVE_TOKEN,
   TOKEN_ERROR,
+  OPEN_RATING_FORM_DRAWER,
+  CLOSE_RATING_FORM_DRAWER,
 } from './constants';
 import {htmlDate} from '../utils';
 import moment from 'moment';
@@ -28,6 +30,21 @@ export const filterDrawer = (state = {show: false}, action) => {
     case TOGGLE_FILTER_DRAWER:
       const newState = {show: !state.show};
       return newState;
+    default:
+      return state;
+  }
+};
+export const ratingFormDrawer = (
+  state = {show: false, selectedRoute: null},
+  action,
+) => {
+  switch (action.type) {
+    case OPEN_RATING_FORM_DRAWER:
+      const newState = {show: !state.show, selectedRoute: action.route};
+      return newState;
+    case CLOSE_RATING_FORM_DRAWER:
+      const updatedState = {show: !state.show, selectedRoute: null};
+      return updatedState;
     default:
       return state;
   }
@@ -82,7 +99,7 @@ export const routeModel = (
       const {sorted_holds, draggingHold} = state;
       const xy = `${hold.coordinateX.toString()}-${hold.coordinateY.toString()}`;
       const filteredHolds = state.holds.filter(
-        _h =>
+        (_h) =>
           _h.id !== state.draggingHold.id &&
           _h.coordinateX !== hold.x &&
           _h.coordinateY !== hold.y,
@@ -112,7 +129,7 @@ export const routeModel = (
       let edit_sorted_holds = {};
       for (let i = 0; i < editModel.routeModels.length; i++) {
         let thisHoldData = holdsData.filter(
-          _h => _h.id === editModel.routeModels[i].holdId,
+          (_h) => _h.id === editModel.routeModels[i].holdId,
         )[0];
         edit_holds.push({
           ...thisHoldData,

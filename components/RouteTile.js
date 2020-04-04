@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Drawer from 'react-native-drawer';
 
 import LikeButton from './LikeButton';
 import CompleteButton from './CompleteButton';
