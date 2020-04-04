@@ -2,18 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {fetchSingleClimbingRoute} from '../redux/thunks/climbingRoutesThunks';
 import RouteTile from './RouteTile';
-import {
-  Container,
-  Header,
-  Text,
-  Icon,
-  View,
-} from 'native-base';
-
-import {
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {Container, Header, Text, Icon, View} from 'native-base';
+import {StyleSheet, TouchableOpacity} from 'react-native';
+import LoadSpinner from './LoadSpinner';
 
 const holdColorDictionary = {
   '#a61901': 'Red',
@@ -27,9 +18,11 @@ const holdColorDictionary = {
 };
 
 class SingleClimbingRoute extends React.Component {
-  viewModel = () => {
-    
-  }
+  viewModel = id => {
+    this.props.navigation.navigate('RouteModel', {
+      climbingRouteId: id,
+    });
+  };
   componentDidMount() {
     const climbingRouteId = this.props.route.params.climbingRouteId;
     this.props.fetchSingleClimbingRoute(climbingRouteId);
@@ -38,12 +31,28 @@ class SingleClimbingRoute extends React.Component {
     const {climbingRoute} = this.props;
     return (
       <Container>
-        <Text> Grade: {climbingRoute.grade}</Text>
-        <Text> Hold Color: {holdColorDictionary[climbingRoute.holdColor]}</Text>
-        <Text> Expiring On: {climbingRoute.endDate}</Text>
-        <TouchableOpacity style={styles.button} onPress={this.viewModel}>
-          <Text style={styles.buttonText}> View Model </Text>
-        </TouchableOpacity>
+        {climbingRoute ? (
+          <Container style={styles.container}>
+            <Text> Grade: {climbingRoute.grade}</Text>
+            <View style={styles.hold}>
+              <Text
+                style={{
+                  backgroundColor: `${climbingRoute.holdColor}`,
+                }}>
+                Hold Color:
+                {holdColorDictionary[climbingRoute.holdColor]}
+              </Text>
+            </View>
+            <Text> Expiring On: {climbingRoute.endDate}</Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.viewModel(climbingRoute.id)}>
+              <Text style={styles.buttonText}> View Model </Text>
+            </TouchableOpacity>
+          </Container>
+        ) : (
+          <LoadSpinner style={{backgroundColor: '#f0eae3'}} />
+        )}
       </Container>
     );
   }
@@ -57,7 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0eae3',
   },
   button: {
-    width: 300,
+    width: 200,
     backgroundColor: 'black',
     borderRadius: 25,
     marginVertical: 10,
@@ -70,6 +79,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
 const mapState = ({climbingRoute}) => ({climbingRoute});
 const mapDispatch = dispatch => {
   return {
