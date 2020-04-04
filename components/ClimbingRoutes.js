@@ -5,6 +5,7 @@ import {toggleFilterDrawer} from '../redux/actions.js';
 import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
 import RouteTile from './RouteTile';
 import LoadSpinner from './LoadSpinner';
+import {withNavigation} from 'react-navigation';
 
 import {
   Container,
@@ -18,14 +19,13 @@ import {
 } from 'native-base';
 
 class ClimbingRoutes extends Component {
-  constructor() {
+  constructor(props) {
     super();
     this.isInFilter = this.isInFilter.bind(this);
     this.filteredRoutes = this.filteredRoutes.bind(this);
     this.userCompletedRoute = this.userCompletedRoute.bind(this);
     this.userLikedRoute = this.userLikedRoute.bind(this);
   }
-
   componentDidMount() {
     this.props.fetchClimbingRoutes();
   }
@@ -106,6 +106,7 @@ class ClimbingRoutes extends Component {
             route={climbingRoutes[i]}
             user={user}
             editModel={editModel}
+            navigation={this.props.navigation}
           />,
         );
     }
@@ -160,4 +161,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(ClimbingRoutes);
+export default withNavigation(connect(mapState, mapDispatch)(ClimbingRoutes));

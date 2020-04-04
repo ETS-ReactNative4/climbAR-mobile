@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 import {Icon} from 'native-base';
 import {toggleFilterDrawer} from '../redux/actions.js';
 import RouteFilters from './RouteFilters';
+import {withNavigation} from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
 
 class FilterDrawer extends Component {
   closeControlPanel = () => {
@@ -15,6 +17,7 @@ class FilterDrawer extends Component {
     this._drawer.open();
   };
   render() {
+    console.log('filterDrawer', this.props)
     return (
       <Drawer
         open={this.props.filterDrawer.show}
@@ -42,7 +45,7 @@ class FilterDrawer extends Component {
             <RouteFilters />
           </View>
         }>
-        <ClimbingRoutes />
+        <ClimbingRoutes navigation={this.props.navigation} />
       </Drawer>
     );
   }
@@ -55,4 +58,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(FilterDrawer);
+export default withNavigation(connect(mapState, mapDispatch)(FilterDrawer));

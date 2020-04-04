@@ -1,22 +1,22 @@
 import React, {Component} from 'react';
-
 import LikeButton from './LikeButton';
 import CompleteButton from './CompleteButton';
 import RatingButton from './RatingButton';
 import RatingDisplay from './RatingDisplay';
 import {average} from '../utils';
-
 import {Card, CardItem, Button, Text} from 'native-base';
+import {connect} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {withNavigation} from 'react-navigation';
 
 class RouteTile extends Component {
   constructor() {
     super();
-    // this.editRoute = this.editRoute.bind(this);
   }
-  //   editRoute() {
-  //     this.props.editModel(this.props.route);
-  //     this.props.history.push('https://climbar.herokuapp.com/admin/create');
-  //   }
+  pressHandler = id => {
+    console.log(id);
+    console.log('this is the props', this.props);
+  };
   render() {
     const {route, user, editModel} = this.props;
     const component = this;
@@ -38,7 +38,8 @@ class RouteTile extends Component {
           block
           style={{
             backgroundColor: route.holdColor,
-          }}>
+          }}
+          onPress={() => this.pressHandler(route.id)}>
           <Text style={{fontWeight: 'bold', color: 'black'}}>
             {route.grade}
           </Text>
@@ -61,4 +62,4 @@ class RouteTile extends Component {
   }
 }
 
-export default RouteTile;
+export default withNavigation(RouteTile);

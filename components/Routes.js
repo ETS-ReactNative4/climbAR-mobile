@@ -8,6 +8,9 @@ import Home from './Home';
 import Signup from './Signup';
 import FilterDrawer from './FilterDrawer';
 import {getUserToken} from '../redux/thunks/userThunks';
+import SingleClimbingRoute from './SingleClimbingRoute';
+import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
+import RouteTile from './RouteTile';
 
 const Stack = createStackNavigator();
 //function to create a new stack navigator, pass an object into function to configure what different screens we want to register for this stack navigator
@@ -26,7 +29,7 @@ class Navigator extends Component {
     this.props.getUserToken();
   };
   render() {
-    const {token} = this.props;
+    const {token, climbingRoutes} = this.props;
     console.log('TOKEN IS ', token);
     return (
       <NavigationContainer>
@@ -38,7 +41,10 @@ class Navigator extends Component {
             </>
           ) : (
             <>
-              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen
+                name="Home"
+                component={Home}
+              />
               <Stack.Screen
                 name="ClimbingRoutes"
                 component={FilterDrawer}
@@ -52,7 +58,10 @@ class Navigator extends Component {
   }
 }
 
-const mapState = ({token, user}) => ({token, user});
+const mapState = ({token, user}) => ({
+  token,
+  user,
+});
 const mapDispatch = dispatch => {
   return {
     getUserToken: () => dispatch(getUserToken()),
