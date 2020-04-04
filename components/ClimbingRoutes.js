@@ -27,7 +27,6 @@ class ClimbingRoutes extends Component {
     this.userLikedRoute = this.userLikedRoute.bind(this);
   }
   componentDidMount() {
-    console.log('component did mount ', this.props);
     this.props.fetchClimbingRoutes();
   }
   userCompletedRoute(routeId) {

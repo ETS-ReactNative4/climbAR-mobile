@@ -53,6 +53,10 @@ class Navigator extends Component {
                 component={ClimbingRoutes}
               />
               <Stack.Screen name="RouteTile" component={RouteTile} />
+              <Stack.Screen
+                name="SingleClimbingRoute"
+                component={SingleClimbingRoute}
+              />
             </>
           )}
         </Stack.Navigator>

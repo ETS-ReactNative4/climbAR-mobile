@@ -14,8 +14,9 @@ class RouteTile extends Component {
     super();
   }
   pressHandler = id => {
-    console.log(id);
-    console.log('this is the props', this.props);
+    this.props.navigation.navigate('SingleClimbingRoute', {
+      climbingRouteId: id,
+    });
   };
   render() {
     const {route, user, editModel} = this.props;
