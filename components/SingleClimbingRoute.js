@@ -27,6 +27,9 @@ const holdColorDictionary = {
 };
 
 class SingleClimbingRoute extends React.Component {
+  viewModel = () => {
+    
+  }
   componentDidMount() {
     const climbingRouteId = this.props.route.params.climbingRouteId;
     this.props.fetchSingleClimbingRoute(climbingRouteId);
@@ -38,6 +41,9 @@ class SingleClimbingRoute extends React.Component {
         <Text> Grade: {climbingRoute.grade}</Text>
         <Text> Hold Color: {holdColorDictionary[climbingRoute.holdColor]}</Text>
         <Text> Expiring On: {climbingRoute.endDate}</Text>
+        <TouchableOpacity style={styles.button} onPress={this.viewModel}>
+          <Text style={styles.buttonText}> View Model </Text>
+        </TouchableOpacity>
       </Container>
     );
   }
@@ -50,17 +56,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#f0eae3',
   },
-  logoContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputBox: {
+  button: {
     width: 300,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     borderRadius: 25,
-    paddingHorizontal: 16,
     marginVertical: 10,
+    paddingVertical: 5,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#e4572e',
+    textAlign: 'center',
   },
 });
 const mapState = ({climbingRoute}) => ({climbingRoute});

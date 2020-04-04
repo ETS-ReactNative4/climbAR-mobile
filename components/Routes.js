@@ -12,6 +12,7 @@ import SingleClimbingRoute from './SingleClimbingRoute';
 import {fetchClimbingRoutes} from '../redux/thunks/climbingRoutesThunks';
 import RouteTile from './RouteTile';
 import ClimbingRoutes from './ClimbingRoutes';
+import RouteModel from './RouteModel'; 
 
 const Stack = createStackNavigator();
 //function to create a new stack navigator, pass an object into function to configure what different screens we want to register for this stack navigator
@@ -46,7 +47,7 @@ class Navigator extends Component {
               <Stack.Screen
                 name="ClimbingRoutes"
                 component={FilterDrawer}
-                options={{title: 'Climbing Routes'}}
+                options={{title: 'All Climbing Routes'}}
               />
               <Stack.Screen
                 name="AllClimbingRoutes"
@@ -56,6 +57,12 @@ class Navigator extends Component {
               <Stack.Screen
                 name="SingleClimbingRoute"
                 component={SingleClimbingRoute}
+                options={{title: 'Selected Climbing Route'}}
+              />
+              <Stack.Screen
+                name="RouteModel"
+                component={RouteModel}
+                options={{title: 'Selected Route Model'}}
               />
             </>
           )}
