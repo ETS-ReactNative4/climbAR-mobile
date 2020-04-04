@@ -58,4 +58,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default withNavigation(connect(mapState, mapDispatch)(FilterDrawer));
+export default connect(mapState, mapDispatch)(FilterDrawer);

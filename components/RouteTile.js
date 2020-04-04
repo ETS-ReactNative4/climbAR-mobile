@@ -62,4 +62,4 @@ class RouteTile extends Component {
   }
 }
 
-export default withNavigation(RouteTile);
+export default RouteTile;

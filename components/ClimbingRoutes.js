@@ -19,7 +19,7 @@ import {
 } from 'native-base';
 
 class ClimbingRoutes extends Component {
-  constructor(props) {
+  constructor() {
     super();
     this.isInFilter = this.isInFilter.bind(this);
     this.filteredRoutes = this.filteredRoutes.bind(this);
@@ -27,6 +27,7 @@ class ClimbingRoutes extends Component {
     this.userLikedRoute = this.userLikedRoute.bind(this);
   }
   componentDidMount() {
+    console.log('component did mount ', this.props);
     this.props.fetchClimbingRoutes();
   }
   userCompletedRoute(routeId) {
@@ -91,7 +92,6 @@ class ClimbingRoutes extends Component {
     }
     return true;
   }
-
   filteredRoutes() {
     const {
       props: {climbingRoutes, user, editModel},
@@ -161,4 +161,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default withNavigation(connect(mapState, mapDispatch)(ClimbingRoutes));
+export default connect(mapState, mapDispatch)(ClimbingRoutes);
