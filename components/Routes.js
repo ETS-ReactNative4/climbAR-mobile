@@ -59,11 +59,6 @@ class Navigator extends Component {
                 component={SingleClimbingRoute}
                 options={{title: 'Selected Climbing Route'}}
               />
-              <Stack.Screen
-                name="RouteModel"
-                component={RouteModel}
-                options={{title: 'Selected Route Model'}}
-              />
             </>
           )}
         </Stack.Navigator>
