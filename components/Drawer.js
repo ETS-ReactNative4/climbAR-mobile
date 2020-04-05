@@ -56,10 +56,9 @@ class DrawerNavigation extends Component {
   };
   render() {
     const {token, climbingRoutes} = this.props;
-    console.log('token is: ', token.token);
     return (
       <NavigationContainer>
-        <Drawer.Navigator>
+        <Drawer.Navigator drawerType>
           {token.token === null ? (
             <>
               <Drawer.Screen name="Login" component={LogInStackScreen} />
