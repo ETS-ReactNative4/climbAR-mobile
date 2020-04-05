@@ -108,7 +108,6 @@ class Signup extends Component {
           <Text> Welcome to ClimbAR </Text>
         </View>
         <Text> Create your account for ClimbAR </Text>
-
         <Field
           style={styles.inputBox}
           name="email"
@@ -135,7 +134,6 @@ class Signup extends Component {
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}> Sign Up </Text>
         </TouchableOpacity>
-
         <View style={styles.loginTextContainer}>
           <Text> Already have an account?</Text>
           <TouchableOpacity onPress={this.loginScreen}>
