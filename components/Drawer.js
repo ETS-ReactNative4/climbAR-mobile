@@ -8,7 +8,7 @@ import Navigation from './Routes';
 import Home from './Home';
 import FilterDrawer from './FilterDrawer';
 import Login from './Login';
-import Signup from './Signup';
+import SignUpPage from './SignUpPage';
 import LogOutScreen from './Logout';
 import RouteTile from './RouteTile';
 import ClimbingRoutes from './ClimbingRoutes';
@@ -90,7 +90,7 @@ const SignUpStackScreen = ({navigation}) => (
   <SignUpStack.Navigator>
     <SignUpStack.Screen
       name="Signup"
-      component={Signup}
+      component={SignUpPage}
       options={{
         headerStyle: {backgroundColor: '#e4572e'},
         headerTintColor: '#000',
@@ -124,6 +124,7 @@ class DrawerNavigation extends Component {
 
   render() {
     const {token, climbingRoutes} = this.props;
+    console.log('token is: ', token.token);
     return (
       <NavigationContainer>
         <Drawer.Navigator>

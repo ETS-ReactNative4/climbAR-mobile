@@ -16,17 +16,17 @@ import {fetchClimbingRoutes} from './climbingRoutesThunks';
 import AsyncStorage from '@react-native-community/async-storage';
 import {emailId} from '../utils';
 
-export const fetchUser = sessionId => {
-  return dispatch => {
+export const fetchUser = (sessionId) => {
+  return (dispatch) => {
     return axios
       .get(`https://climbar.herokuapp.com/api/users/session/${sessionId}`)
-      .then(res => {
+      .then((res) => {
         console.log(chalk.cyan('returned value from get api', res.data));
         const {user, completedRouteInfo} = res.data;
         user['completedRouteInfo'] = completedRouteInfo;
         dispatch(setUser(user));
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(chalk.cyan('error setting the user', e));
         switch (e.response.status) {
           case 404:
@@ -46,15 +46,15 @@ export const fetchUser = sessionId => {
   };
 };
 
-export const getUser = token => {
+export const getUser = (token) => {
   return function thunk(dispatch) {
     return axios
       .get(`https://climbar.herokuapp.com/api/users/token/${token}`)
-      .then(res => {
+      .then((res) => {
         const {user} = res.data;
         dispatch(setUser(user));
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -67,32 +67,32 @@ export const createUser = (email, password) => {
     email,
     password,
     userType: 'Climber',
-    token: emailId(email),
+    token,
   };
-  return dispatch => {
+  return (dispatch) => {
     AsyncStorage.setItem('userToken', token)
       .then(() => {
         dispatch(saveToken(token));
         return axios
           .post('https://climbar.herokuapp.com/api/users/mobile', req)
-          .then(res => {
+          .then((res) => {
             dispatch(setUser(res.data));
           })
-          .catch(e => {
+          .catch((e) => {
             console.warn(e);
           });
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('ERROR SETTING TOKEN IN ASYNC STORAGE ', e);
       });
   };
 };
 
-export const logoutUser = userId => {
+export const logoutUser = (userId) => {
   return function thunk(dispatch) {
     return axios
       .post(`https://climbar.herokuapp.com/api/users/logout/${userId}`)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         dispatch(setUser(res.data));
       })
@@ -104,7 +104,7 @@ export const logoutUser = userId => {
           }),
         );
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Error logging user out', err);
       });
   };
@@ -117,11 +117,11 @@ export const likeRoute = (user, route) => {
         user,
         route,
       })
-      .then(res => {
+      .then((res) => {
         dispatch(getUser(user.token));
         dispatch(fetchClimbingRoutes());
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Error liking a route ', err);
       });
   };
@@ -137,7 +137,7 @@ export const unLikeRoute = (user, route) => {
         dispatch(getUser(user.token));
         dispatch(fetchClimbingRoutes());
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Error unliking a route ', err);
       });
   };
@@ -150,11 +150,11 @@ export const markComplete = (user, route) => {
         user,
         route,
       })
-      .then(res => {
+      .then((res) => {
         dispatch(getUser(user.token));
         dispatch(fetchClimbingRoutes());
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Error marking a route complete', err);
       });
   };
@@ -166,11 +166,11 @@ export const unComplete = (user, route) => {
       .delete('https://climbar.herokuapp.com/api/users/routes/uncomplete', {
         data: {user, route},
       })
-      .then(res => {
+      .then((res) => {
         dispatch(getUser(user.token));
         dispatch(fetchClimbingRoutes());
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Error marking a route complete', err);
       });
   };
@@ -188,7 +188,7 @@ export const rate = (user, route, rating) => {
         dispatch(getUser(user.token));
         dispatch(fetchClimbingRoutes());
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Error rating a route ', err);
       });
   };
@@ -197,12 +197,12 @@ export const rate = (user, route, rating) => {
 export const getUserToken = () => {
   return function thunk(dispatch) {
     return AsyncStorage.getItem('userToken')
-      .then(data => {
+      .then((data) => {
         console.log('returning from getItem: ', data);
         dispatch(getToken(data));
         dispatch(getUser(data));
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(tokenError(err.message || 'ERROR'));
       });
   };
@@ -213,15 +213,15 @@ export const saveUserToken = (email, password) => {
     // making my own id here b/c the two most popular uuid libraries don't currently work w react native. See issue: https://github.com/uuidjs/uuid/issues/375
     const token = emailId(email);
     return AsyncStorage.setItem('userToken', token)
-      .then(data => {
+      .then((data) => {
         const req = {email, password, token};
         dispatch(saveToken(token));
         axios
           .post('https://climbar.herokuapp.com/api/users/token', req)
-          .then(res => dispatch(getUser(token)))
-          .catch(err => console.log(err));
+          .then((res) => dispatch(getUser(token)))
+          .catch((err) => console.log(err));
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(tokenError(err.message || 'ERROR'));
       });
   };
@@ -230,10 +230,10 @@ export const saveUserToken = (email, password) => {
 export const removeUserToken = () => {
   return function thunk(dispatch) {
     return AsyncStorage.removeItem('userToken')
-      .then(data => {
+      .then((data) => {
         dispatch(removeToken(data));
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(tokenError(err.message || 'ERROR'));
       });
   };

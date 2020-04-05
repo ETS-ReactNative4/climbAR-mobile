@@ -26,7 +26,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  mapElement: n => {},
+  mapElement: (n) => {},
   onSubmitEditing: () => {},
   onChangeText: () => {},
   value: '',
@@ -40,7 +40,7 @@ class InputText extends Component {
   state = {
     value: '',
   };
-  onChangeText = value => {
+  onChangeText = (value) => {
     this.setState(
       {
         value,

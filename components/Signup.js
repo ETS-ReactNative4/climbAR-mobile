@@ -59,23 +59,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
 });
-//todo: fix users api update
+
 class Signup extends Component {
   constructor() {
     super();
-    this.state = {
-      email: '',
-      password: '',
-    };
   }
   loginScreen = () => {
     this.props.navigation.navigate('Login');
   };
-  onSubmit = values => {
-    const {email, password} = values;
-    this.props.createUser(email, password);
-  };
-  renderTextInput = field => {
+
+  renderTextInput = (field) => {
     const {
       meta: {touched, error},
       label,
@@ -85,6 +78,7 @@ class Signup extends Component {
       placeholder,
       input: {onChange, ...restInput},
     } = field;
+
     return (
       <View>
         <InputText
@@ -103,8 +97,9 @@ class Signup extends Component {
 
   render() {
     const {handleSubmit} = this.props;
+
     return (
-      <View style={styles.container}>
+      <View style={styles.container} onSubmit={handleSubmit}>
         <View style={styles.logoContainer}>
           <Image
             style={{width: 350, height: 85}}
@@ -136,9 +131,7 @@ class Signup extends Component {
           component={this.renderTextInput}
           secureTextEntry={true}
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleSubmit(this.onSubmit)}>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}> Sign Up </Text>
         </TouchableOpacity>
         <View style={styles.loginTextContainer}>
@@ -153,7 +146,7 @@ class Signup extends Component {
 }
 
 // creating validate function
-const validate = values => {
+const validate = (values) => {
   const errors = {};
   const {email, password, confirmPassword} = values;
   if (!email) {
@@ -173,7 +166,7 @@ const validate = values => {
 
 const mapState = ({token}) => ({token});
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     createUser: (email, password) => dispatch(createUser(email, password)),
     saveUserToken: () => dispatch(saveUserToken()),
