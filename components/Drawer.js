@@ -124,6 +124,7 @@ class DrawerNavigation extends Component {
 
   render() {
     const {token, climbingRoutes} = this.props;
+    console.log('token is: ', token.token);
     return (
       <NavigationContainer>
         <Drawer.Navigator>
