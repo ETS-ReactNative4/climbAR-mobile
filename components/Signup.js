@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
-import {Field, reduxForm, formValues} from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 import InputText from './InputText';
 import {createUser, saveUserToken} from '../redux/thunks/userThunks';
 
@@ -63,30 +63,15 @@ const styles = StyleSheet.create({
 class Signup extends Component {
   constructor() {
     super();
-    this.state = {
-      email: '',
-      password: '',
-    };
+    // this.state = {
+    //   email: '',
+    //   password: '',
+    // };
   }
   loginScreen = () => {
     this.props.navigation.navigate('Login');
   };
-  onSubmit = () => {
-    console.log(formValues('email')());
-    const {email, password} = this.state;
-    console.log('email: ', email);
-    console.log('password: ', password);
-    if (!email || !password) {
-      return;
-    }
-    this.props.createUser(email, password);
-  };
 
-  handleChange = (name, value) => {
-    this.setState({
-      [name]: value,
-    });
-  };
   renderTextInput = (field) => {
     const {
       meta: {touched, error},
@@ -118,7 +103,7 @@ class Signup extends Component {
     const {handleSubmit} = this.props;
 
     return (
-      <View style={styles.container}>
+      <View style={styles.container} onSubmit={handleSubmit}>
         <View style={styles.logoContainer}>
           <Image
             style={{width: 350, height: 85}}
@@ -127,6 +112,7 @@ class Signup extends Component {
           <Text> Welcome to ClimbAR </Text>
         </View>
         <Text> Create your account for ClimbAR </Text>
+
         <Field
           style={styles.inputBox}
           name="email"
@@ -150,9 +136,10 @@ class Signup extends Component {
           component={this.renderTextInput}
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}> Sign Up </Text>
         </TouchableOpacity>
+
         <View style={styles.loginTextContainer}>
           <Text> Already have an account?</Text>
           <TouchableOpacity onPress={this.loginScreen}>

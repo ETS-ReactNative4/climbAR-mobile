@@ -41,7 +41,6 @@ class InputText extends Component {
     value: '',
   };
   onChangeText = (value) => {
-    console.log('value in inputText: ', value);
     this.setState(
       {
         value,
