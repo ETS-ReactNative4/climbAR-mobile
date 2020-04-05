@@ -48,7 +48,7 @@ class ClimbingRoutesStackScreen extends Component {
                 name="ios-log-out"
                 size={30}
                 style={{backgroundColor: '#e4572e'}}
-                onPress={() => this.props.removeUserToken()}></Icon.Button>
+                onPress={this.logOutAsync}></Icon.Button>
             ),
           }}
         />

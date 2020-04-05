@@ -19,11 +19,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 //Creating individual stacks and screen so the drawer navigation is able to wrap around as the higher order component
 const HomeStack = createStackNavigator();
 class HomeStackScreen extends Component {
-  componentDidMount() {
-    this._bootstrapAsync();
-  }
-  _bootstrapAsync = () => {
-    this.props.getUserToken();
+  logOutAsync = () => {
+    this.props
+      .removeUserToken()
+      .then(() => {})
+      .catch((error) => this.setState({error}));
   };
   render() {
     const {token, climbingRoutes, navigation} = this.props;
@@ -47,7 +47,7 @@ class HomeStackScreen extends Component {
                 name="ios-log-out"
                 size={30}
                 style={{backgroundColor: '#e4572e'}}
-                onPress={() => this.props.removeUserToken()}></Icon.Button>
+                onPress={this.logOutAsync}></Icon.Button>
             ),
           }}
         />
