@@ -9,10 +9,11 @@ import Home from './Home';
 import FilterDrawer from './FilterDrawer';
 import Login from './Login';
 import Signup from './Signup';
+import LogOutScreen from './Logout';
 import RouteTile from './RouteTile';
 import ClimbingRoutes from './ClimbingRoutes';
 import SingleClimbingRoute from './SingleClimbingRoute';
-import {getUserToken} from '../redux/thunks/userThunks';
+import {getUserToken, removeUserToken} from '../redux/thunks/userThunks';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 //Creating individual stacks and screen so the drawer navigation is able to wrap around as the higher order component
@@ -35,6 +36,20 @@ const HomeStackScreen = ({navigation}) => (
       }}
     />
   </HomeStack.Navigator>
+);
+
+const LogoutStack = createStackNavigator();
+const LogOutStackScreen = ({navigation}) => (
+  <LogoutStack.Navigator>
+    <LogoutStack.Screen
+      name="Logging you out"
+      component={LogOutScreen}
+      options={{
+        headerStyle: {backgroundColor: '#e4572e'},
+        headerTintColor: '#000',
+      }}
+    />
+  </LogoutStack.Navigator>
 );
 
 const ClimbingRoutesStack = createStackNavigator();
@@ -106,12 +121,7 @@ class DrawerNavigation extends Component {
   _bootstrapAsync = () => {
     this.props.getUserToken();
   };
-  logOutAsync = () => {
-    this.props
-      .removeUserToken()
-      .then(() => {})
-      .catch(error => this.setState({error}));
-  };
+
   render() {
     const {token, climbingRoutes} = this.props;
     return (
@@ -129,6 +139,7 @@ class DrawerNavigation extends Component {
                 name="Climbing Routes"
                 component={ClimbingRoutesStackScreen}
               />
+              <Drawer.Screen name="Logout" component={LogOutStackScreen} />
             </>
           )}
         </Drawer.Navigator>
@@ -138,7 +149,7 @@ class DrawerNavigation extends Component {
 }
 
 const mapState = ({token, user}) => ({token, user});
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     getUserToken: () => dispatch(getUserToken()),
   };
