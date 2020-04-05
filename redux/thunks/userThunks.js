@@ -56,6 +56,7 @@ export const getUser = (token) => {
       })
       .catch((err) => {
         console.log(err);
+        dispatch(setUser({}));
       });
   };
 };
