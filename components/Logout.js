@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {removeUserToken} from '../redux/thunks/userThunks';
+import {Button, Text} from 'native-base';
 
 class LogOutScreen extends Component {
   logOutAsync = () => {
@@ -10,8 +11,12 @@ class LogOutScreen extends Component {
       .catch((error) => this.setState({error}));
   };
   render() {
-    this.logOutAsync();
-    return null;
+    // this.logOutAsync();
+    return (
+      <Button onPress={() => this.logOutAsync()}> 
+        <Text> Log out</Text> 
+      </Button>
+    )
   }
 }
 
