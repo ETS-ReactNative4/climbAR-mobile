@@ -59,14 +59,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
 });
-// todo: pass input to onSubmit function
+
 class Signup extends Component {
   constructor() {
     super();
-    // this.state = {
-    //   email: '',
-    //   password: '',
-    // };
   }
   loginScreen = () => {
     this.props.navigation.navigate('Login');
